@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Command Center</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); min-height: 100vh; color: #334155; line-height: 1.6; }
+        .header { background: white; border-bottom: 1px solid #e2e8f0; padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .header h1 { font-size: 1.5rem; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 0.5rem; }
+        .header-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn { padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.15s ease; border: none; display: inline-flex; align-items: center; gap: 0.375rem; }
+        .btn-primary { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
+        .btn-secondary { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+        .btn-secondary:hover { background: #e2e8f0; }
+        .btn-danger { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .btn-danger:hover { background: #fee2e2; }
+        .btn-small { padding: 0.25rem 0.5rem; font-size: 0.75rem; }
+        .btn-icon { padding: 0.5rem; min-width: auto; }
+        .main-container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+        .toolbar { background: white; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+        .search-box { flex: 1; min-width: 200px; position: relative; }
+        .search-box input { width: 100%; padding: 0.5rem 0.75rem 0.5rem 2.25rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 0.875rem; }
+        .search-box input:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+        .search-box::before { content: "🔍"; position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); font-size: 0.875rem; opacity: 0.5; }
+        .filter-group { display: flex; gap: 0.5rem; align-items: center; }
+        .filter-group label { font-size: 0.75rem; color: #64748b; font-weight: 500; text-transform: uppercase; }
+        .filter-group select { padding: 0.5rem 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 0.875rem; background: white; }
+        .filter-group select:focus { outline: none; border-color: #3b82f6; }
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+        .project-card { background: white; border-radius: 0.75rem; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; transition: all 0.2s ease; border-left: 4px solid transparent; }
+        .project-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .project-card-thumbnail { height: 140px; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .project-card-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+        .project-card-thumbnail .placeholder { font-size: 3rem; opacity: 0.3; }
+        .project-card-content { padding: 1rem; }
+        .project-card-header { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+        .project-card h3 { font-size: 1rem; font-weight: 600; color: #1e293b; margin-bottom: 0.25rem; }
+        .project-card-description { font-size: 0.875rem; color: #64748b; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .project-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #f1f5f9; }
+        .project-card-deadline { font-size: 0.75rem; color: #64748b; display: flex; align-items: center; gap: 0.25rem; }
+        .project-card-deadline.urgent { color: #dc2626; font-weight: 500; }
+        .badge { padding: 0.125rem 0.5rem; border-radius: 9999px; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; }
+        .badge-status-research { background: #dbeafe; color: #1e40af; }
+        .badge-status-draft { background: #ede9fe; color: #5b21b6; }
+        .badge-status-submitted { background: #fef3c7; color: #92400e; }
+        .badge-status-revising { background: #e0f2fe; color: #0369a1; }
+        .badge-status-onhold { background: #f1f5f9; color: #475569; }
+        .badge-status-published { background: #d1fae5; color: #065f46; }
+        .badge-type { background: #f1f5f9; color: #475569; }
+        .project-card.status-research { border-left-color: #3b82f6; }
+        .project-card.status-draft { border-left-color: #8b5cf6; }
+        .project-card.status-submitted { border-left-color: #f59e0b; }
+        .project-card.status-revising { border-left-color: #0ea5e9; }
+        .project-card.status-onhold { border-left-color: #94a3b8; }
+        .project-card.status-published { border-left-color: #10b981; }
+        .empty-state { text-align: center; padding: 4rem 2rem; color: #64748b; }
+        .empty-state .icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.3; }
+        .empty-state h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: #475569; }
+        .empty-state p { margin-bottom: 1.5rem; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background: white; border-radius: 0.75rem; width: 100%; max-width: 600px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; transform: scale(0.95); transition: transform 0.2s; }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h2 { font-size: 1.125rem; font-weight: 600; color: #1e293b; }
+        .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b; padding: 0.25rem; line-height: 1; }
+        .modal-close:hover { color: #1e293b; }
+        .modal-body { padding: 1.5rem; overflow-y: auto; flex: 1; }
+        .modal-footer { padding: 1rem 1.5rem; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 0.75rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group:last-child { margin-bottom: 0; }
+        .form-group label { display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.375rem; }
+        .form-group label .required { color: #dc2626; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.625rem 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; font-size: 0.9375rem; font-family: inherit; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-group .hint { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+        .form-group .error-message { font-size: 0.75rem; color: #dc2626; margin-top: 0.25rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .detail-view { display: none; }
+        .detail-view.active { display: block; }
+        .list-view.hidden { display: none; }
+        .detail-header { background: white; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .detail-header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+        .detail-header h2 { font-size: 1.5rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem; }
+        .detail-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 0.75rem; }
+        .detail-description { font-size: 1rem; color: #64748b; margin-bottom: 0.75rem; }
+        .detail-dates { font-size: 0.75rem; color: #94a3b8; }
+        .detail-deadline { display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.25rem 0.75rem; background: #f1f5f9; border-radius: 0.375rem; font-size: 0.875rem; color: #475569; }
+        .detail-deadline.urgent { background: #fef2f2; color: #dc2626; }
+        .section { background: white; border-radius: 0.75rem; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
+        .section-header { padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; transition: background 0.15s; }
+        .section-header:hover { background: #f8fafc; }
+        .section-header h3 { font-size: 0.9375rem; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 0.5rem; }
+        .section-header .count { background: #e2e8f0; color: #64748b; font-size: 0.75rem; padding: 0.125rem 0.5rem; border-radius: 9999px; font-weight: 500; }
+        .section-header .toggle { font-size: 1.25rem; color: #64748b; transition: transform 0.2s; }
+        .section.collapsed .section-header .toggle { transform: rotate(-90deg); }
+        .section-content { padding: 0 1.25rem 1.25rem; display: block; }
+        .section.collapsed .section-content { display: none; }
+        .section-actions { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f1f5f9; }
+        .item-list { list-style: none; }
+        .item-list li { padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; margin-bottom: 0.5rem; background: #fafafa; }
+        .item-list li:last-child { margin-bottom: 0; }
+        .item-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
+        .item-title { font-weight: 500; color: #1e293b; margin-bottom: 0.25rem; }
+        .item-meta { font-size: 0.8125rem; color: #64748b; }
+        .item-notes { font-size: 0.8125rem; color: #475569; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed #e2e8f0; }
+        .item-actions { display: flex; gap: 0.25rem; flex-shrink: 0; }
+        .item-link { color: #3b82f6; text-decoration: none; word-break: break-all; }
+        .item-link:hover { text-decoration: underline; }
+        .note-item { padding: 0.75rem; border-left: 3px solid #e2e8f0; margin-bottom: 0.75rem; background: #fafafa; border-radius: 0 0.375rem 0.375rem 0; }
+        .note-item:last-child { margin-bottom: 0; }
+        .note-date { font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.25rem; }
+        .note-text { font-size: 0.9375rem; color: #374151; white-space: pre-wrap; }
+        .images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; }
+        .image-item { position: relative; aspect-ratio: 1; border-radius: 0.5rem; overflow: hidden; cursor: pointer; background: #f1f5f9; }
+        .image-item img { width: 100%; height: 100%; object-fit: cover; }
+        .image-item:hover .image-overlay { opacity: 1; }
+        .image-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; gap: 0.5rem; opacity: 0; transition: opacity 0.2s; }
+        .image-modal-content { max-width: 90vw; max-height: 90vh; }
+        .image-modal-content img { max-width: 100%; max-height: 60vh; display: block; margin: 0 auto 1rem; border-radius: 0.5rem; }
+        .image-info { text-align: center; }
+        .image-info .caption { font-size: 1rem; color: #1e293b; margin-bottom: 0.25rem; }
+        .image-info .attribution { font-size: 0.875rem; color: #64748b; }
+        .argument-text { font-size: 0.9375rem; line-height: 1.7; color: #374151; white-space: pre-wrap; }
+        .argument-empty { color: #94a3b8; font-style: italic; }
+        .back-btn { margin-bottom: 1rem; }
+        .confirm-modal .modal { max-width: 400px; }
+        .confirm-message { font-size: 1rem; color: #374151; margin-bottom: 0.5rem; }
+        .confirm-warning { font-size: 0.875rem; color: #dc2626; }
+        .toast-container { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 2000; display: flex; flex-direction: column; gap: 0.5rem; }
+        .toast { padding: 0.75rem 1rem; background: #1e293b; color: white; border-radius: 0.5rem; font-size: 0.875rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); animation: slideIn 0.2s ease; }
+        .toast.success { background: #059669; }
+        .toast.error { background: #dc2626; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .error-banner { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 1rem 1.5rem; margin: 1rem; border-radius: 0.5rem; text-align: center; }
+        .file-input-wrapper { position: relative; }
+        .file-input-wrapper input[type="file"] { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+        .file-input-label { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 2rem; border: 2px dashed #e2e8f0; border-radius: 0.5rem; color: #64748b; font-size: 0.875rem; }
+        .file-input-wrapper:hover .file-input-label { border-color: #3b82f6; background: #f8fafc; }
+        .image-preview { margin-top: 1rem; text-align: center; }
+        .image-preview img { max-width: 100%; max-height: 200px; border-radius: 0.5rem; }
+        .notes-sort { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #64748b; }
+        .notes-sort button { background: none; border: 1px solid #e2e8f0; padding: 0.25rem 0.5rem; border-radius: 0.25rem; cursor: pointer; font-size: 0.75rem; color: #64748b; }
+        .notes-sort button.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+        @media (max-width: 768px) { .header-content { flex-direction: column; align-items: stretch; } .header-actions { justify-content: center; } .toolbar { flex-direction: column; } .filter-group { width: 100%; justify-content: space-between; } .project-grid { grid-template-columns: 1fr; } .detail-header-top { flex-direction: column; } .form-row { grid-template-columns: 1fr; } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <div id="errorBanner" class="error-banner hidden"><strong>Storage Error:</strong> IndexedDB is not available.</div>
+    <header class="header">
+        <div class="header-content">
+            <h1><span>📚</span> Research Command Center</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openProjectModal()"><span>+</span> New Project</button>
+                <button class="btn btn-secondary" onclick="exportAllProjects()"><span>📤</span> Export</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('importInput').click()"><span>📥</span> Import</button>
+                <input type="file" id="importInput" accept=".json" style="display:none" onchange="handleImport(event)">
+            </div>
+        </div>
+    </header>
+    <main class="main-container">
+        <div id="listView" class="list-view">
+            <div class="toolbar">
+                <div class="search-box"><input type="text" id="searchInput" placeholder="Search projects..." oninput="filterProjects()"></div>
+                <div class="filter-group"><label>Status:</label><select id="filterStatus" onchange="filterProjects()"><option value="">All</option><option value="Research">Research</option><option value="Draft">Draft</option><option value="Submitted">Submitted</option><option value="Revising">Revising</option><option value="On Hold">On Hold</option><option value="Published/Completed">Published/Completed</option></select></div>
+                <div class="filter-group"><label>Type:</label><select id="filterType" onchange="filterProjects()"><option value="">All</option><option value="Article">Article</option><option value="Talk/Conference">Talk/Conference</option><option value="Book Chapter">Book Chapter</option><option value="Grant Application">Grant Application</option><option value="Other">Other</option></select></div>
+                <div class="filter-group"><label>Sort:</label><select id="sortBy" onchange="filterProjects()"><option value="dateModified">Recently Modified</option><option value="deadline">Deadline (Soonest)</option><option value="title">Title (A-Z)</option><option value="dateCreated">Date Created</option></select></div>
+            </div>
+            <div id="projectGrid" class="project-grid"></div>
+            <div id="emptyState" class="empty-state hidden"><div class="icon">📂</div><h3>No projects yet</h3><p>Create your first research project to get started.</p><button class="btn btn-primary" onclick="openProjectModal()"><span>+</span> New Project</button></div>
+        </div>
+        <div id="detailView" class="detail-view">
+            <button class="btn btn-secondary back-btn" onclick="showListView()">← Back to all projects</button>
+            <div class="detail-header">
+                <div class="detail-header-top">
+                    <div><h2 id="detailTitle"></h2><div class="detail-meta"><span id="detailType" class="badge badge-type"></span><span id="detailStatus" class="badge"></span><span id="detailDeadline" class="detail-deadline hidden"></span></div><p id="detailDescription" class="detail-description"></p><p id="detailDates" class="detail-dates"></p></div>
+                    <div class="header-actions"><button class="btn btn-secondary" onclick="openEditProjectModal()">✏️ Edit</button><button class="btn btn-danger" onclick="confirmDeleteProject()">🗑️ Delete</button></div>
+                </div>
+            </div>
+            <div id="argumentSection" class="section"><div class="section-header" onclick="toggleSection('argumentSection')"><h3>📝 Argument / Abstract</h3><span class="toggle">▼</span></div><div class="section-content"><div id="argumentText" class="argument-text"></div><div class="section-actions"><button class="btn btn-secondary btn-small" onclick="openArgumentModal()">✏️ Edit Argument</button></div></div></div>
+            <div id="sourcesSection" class="section collapsed"><div class="section-header" onclick="toggleSection('sourcesSection')"><h3>📖 Sources <span id="sourcesCount" class="count">0</span></h3><span class="toggle">▼</span></div><div class="section-content"><ul id="sourcesList" class="item-list"></ul><div class="section-actions"><button class="btn btn-secondary btn-small" onclick="openSourceModal()">+ Add Source</button></div></div></div>
+            <div id="imagesSection" class="section collapsed"><div class="section-header" onclick="toggleSection('imagesSection')"><h3>🖼️ Images <span id="imagesCount" class="count">0</span></h3><span class="toggle">▼</span></div><div class="section-content"><div id="imagesGrid" class="images-grid"></div><div class="section-actions"><button id="addImageBtn" class="btn btn-secondary btn-small" onclick="openImageModal()">+ Add Image</button></div></div></div>
+            <div id="notesSection" class="section"><div class="section-header" onclick="toggleSection('notesSection')"><h3>📋 Notes <span id="notesCount" class="count">0</span></h3><span class="toggle">▼</span></div><div class="section-content"><div class="notes-sort"><span>Sort:</span><button id="sortNewest" class="active" onclick="setNotesSort('newest')">Newest First</button><button id="sortOldest" onclick="setNotesSort('oldest')">Oldest First</button></div><div id="notesList" style="margin-top:1rem;"></div><div class="section-actions"><button class="btn btn-secondary btn-small" onclick="openNoteModal()">+ Add Note</button></div></div></div>
+            <div id="contactsSection" class="section collapsed"><div class="section-header" onclick="toggleSection('contactsSection')"><h3>👥 Contacts <span id="contactsCount" class="count">0</span></h3><span class="toggle">▼</span></div><div class="section-content"><ul id="contactsList" class="item-list"></ul><div class="section-actions"><button class="btn btn-secondary btn-small" onclick="openContactModal()">+ Add Contact</button></div></div></div>
+            <div id="linksSection" class="section collapsed"><div class="section-header" onclick="toggleSection('linksSection')"><h3>🔗 Links <span id="linksCount" class="count">0</span></h3><span class="toggle">▼</span></div><div class="section-content"><ul id="linksList" class="item-list"></ul><div class="section-actions"><button class="btn btn-secondary btn-small" onclick="openLinkModal()">+ Add Link</button></div></div></div>
+        </div>
+    </main>
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Modals -->
+    <div id="projectModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'projectModal')"><div class="modal"><div class="modal-header"><h2 id="projectModalTitle">New Project</h2><button class="modal-close" onclick="closeModal('projectModal')">&times;</button></div><div class="modal-body"><form id="projectForm" onsubmit="saveProject(event)"><input type="hidden" id="projectId"><div class="form-group"><label>Title <span class="required">*</span></label><input type="text" id="projectTitle" required></div><div class="form-row"><div class="form-group"><label>Type <span class="required">*</span></label><select id="projectType" required><option value="Article">Article</option><option value="Talk/Conference">Talk/Conference</option><option value="Book Chapter">Book Chapter</option><option value="Grant Application">Grant Application</option><option value="Other">Other</option></select></div><div class="form-group"><label>Status <span class="required">*</span></label><select id="projectStatus" required><option value="Research">Research</option><option value="Draft">Draft</option><option value="Submitted">Submitted</option><option value="Revising">Revising</option><option value="On Hold">On Hold</option><option value="Published/Completed">Published/Completed</option></select></div></div><div class="form-group"><label>Description</label><input type="text" id="projectDescription" placeholder="One-line elevator pitch"></div><div class="form-group"><label>Deadline</label><input type="date" id="projectDeadline"></div></form></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('projectModal')">Cancel</button><button class="btn btn-primary" onclick="document.getElementById('projectForm').requestSubmit()">Save Project</button></div></div></div>
+
+    <div id="argumentModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'argumentModal')"><div class="modal"><div class="modal-header"><h2>Edit Argument / Abstract</h2><button class="modal-close" onclick="closeModal('argumentModal')">&times;</button></div><div class="modal-body"><form id="argumentForm" onsubmit="saveArgument(event)"><div class="form-group"><label>Argument / Abstract</label><textarea id="argumentInput" rows="10" placeholder="Longer prose summary..."></textarea></div></form></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('argumentModal')">Cancel</button><button class="btn btn-primary" onclick="document.getElementById('argumentForm').requestSubmit()">Save</button></div></div></div>
+
+    <div id="sourceModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'sourceModal')"><div class="modal"><div class="modal-header"><h2 id="sourceModalTitle">Add Source</h2><button class="modal-close" onclick="closeModal('sourceModal')">&times;</button></div><div class="modal-body"><form id="sourceForm" onsubmit="saveSource(event)"><input type="hidden" id="sourceId"><div class="form-group"><label>Title / Description <span class="required">*</span></label><input type="text" id="sourceTitle" required placeholder="e.g., Głos Ludu article, March 1948"></div><div class="form-group"><label>Archive / Collection</label><input type="text" id="sourceArchive" placeholder="e.g., NAC Warsaw, Sygnatura 3/456"></div><div class="form-group"><label>Citation</label><textarea id="sourceCitation" rows="2" placeholder="Formatted citation"></textarea></div><div class="form-group"><label>File Link</label><input type="text" id="sourceFileLink" placeholder="URL or file path"><p class="hint">Dropbox URL, local file path, or Zotero link</p></div><div class="form-group"><label>Notes</label><textarea id="sourceNotes" rows="2"></textarea></div></form></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('sourceModal')">Cancel</button><button class="btn btn-primary" onclick="document.getElementById('sourceForm').requestSubmit()">Save Source</button></div></div></div>
+
+    <div id="imageModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'imageModal')"><div class="modal"><div class="modal-header"><h2 id="imageModalTitle">Add Image</h2><button class="modal-close" onclick="closeModal('imageModal')">&times;</button></div><div class="modal-body"><form id="imageForm" onsubmit="saveImage(event)"><input type="hidden" id="imageId"><div class="form-group" id="imageUploadGroup"><label>Image File <span class="required">*</span></label><div class="file-input-wrapper"><input type="file" id="imageFile" accept="image/*" onchange="previewImage(event)"><div class="file-input-label">📷 Click or drag to upload (max 500KB)</div></div><div id="imagePreview" class="image-preview hidden"></div><p id="imageError" class="error-message hidden"></p></div><div class="form-group"><label>Caption</label><input type="text" id="imageCaption" placeholder="Caption or description"></div><div class="form-group"><label>Attribution</label><input type="text" id="imageAttribution" placeholder="Source"></div><div class="form-group"><label>Notes</label><textarea id="imageNotes" rows="2"></textarea></div></form></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('imageModal')">Cancel</button><button class="btn btn-primary" onclick="document.getElementById('imageForm').requestSubmit()">Save Image</button></div></div></div>
+
+    <div id="imageViewModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'imageViewModal')"><div class="modal image-modal-content"><div class="modal-header"><h2>Image</h2><button class="modal-close" onclick="closeModal('imageViewModal')">&times;</button></div><div class="modal-body"><img id="imageViewSrc" src="" alt=""><div class="image-info"><p id="imageViewCaption" class="caption"></p><p id="imageViewAttribution" class="attribution"></p></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="editCurrentImage()">✏️ Edit</button><button class="btn btn-danger" onclick="deleteCurrentImage()">🗑️ Delete</button><button class="btn btn-secondary" onclick="closeModal('imageViewModal')">Close</button></div></div></div>
+
+    <div id="noteModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'noteModal')"><div class="modal"><div class="modal-header"><h2 id="noteModalTitle">Add Note</h2><button class="modal-close" onclick="closeModal('noteModal')">&times;</button></div><div class="modal-body"><form id="noteForm" onsubmit="saveNote(event)"><input type="hidden" id="noteId"><div class="form-group"><label>Note <span class="required">*</span></label><textarea id="noteText" rows="6" required placeholder="Your note..."></textarea></div></form></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('noteModal')">Cancel</button><button class="btn btn-primary" onclick="document.getElementById('noteForm').requestSubmit()">Save Note</button></div></div></div>
+
+    <div id="contactModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'contactModal')"><div class="modal"><div class="modal-header"><h2 id="contactModalTitle">Add Contact</h2><button class="modal-close" onclick="closeModal('contactModal')">&times;</button></div><div class="modal-body"><form id="contactForm" onsubmit="saveContact(event)"><input type="hidden" id="contactId"><div class="form-group"><label>Name <span class="required">*</span></label><input type="text" id="contactName" required></div><div class="form-group"><label>Role / Affiliation</label><input type="text" id="contactRole" placeholder="e.g., Archivist, NAC Warsaw"></div><div class="form-row"><div class="form-group"><label>Email</label><input type="email" id="contactEmail"></div><div class="form-group"><label>Phone</label><input type="tel" id="contactPhone"></div></div><div class="form-group"><label>Notes</label><textarea id="contactNotes" rows="2"></textarea></div></form></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('contactModal')">Cancel</button><button class="btn btn-primary" onclick="document.getElementById('contactForm').requestSubmit()">Save Contact</button></div></div></div>
+
+    <div id="linkModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'linkModal')"><div class="modal"><div class="modal-header"><h2 id="linkModalTitle">Add Link</h2><button class="modal-close" onclick="closeModal('linkModal')">&times;</button></div><div class="modal-body"><form id="linkForm" onsubmit="saveLink(event)"><input type="hidden" id="linkId"><div class="form-group"><label>Label <span class="required">*</span></label><input type="text" id="linkLabel" required placeholder="e.g., Scrivener file"></div><div class="form-group"><label>URL <span class="required">*</span></label><input type="text" id="linkUrl" required placeholder="URL or file path"></div><div class="form-group"><label>Notes</label><textarea id="linkNotes" rows="2"></textarea></div></form></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('linkModal')">Cancel</button><button class="btn btn-primary" onclick="document.getElementById('linkForm').requestSubmit()">Save Link</button></div></div></div>
+
+    <div id="confirmModal" class="modal-overlay confirm-modal" onclick="closeModalOnOverlay(event,'confirmModal')"><div class="modal"><div class="modal-header"><h2 id="confirmTitle">Confirm</h2><button class="modal-close" onclick="closeModal('confirmModal')">&times;</button></div><div class="modal-body"><p id="confirmMessage" class="confirm-message"></p><p id="confirmWarning" class="confirm-warning"></p></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('confirmModal')">Cancel</button><button id="confirmBtn" class="btn btn-danger">Delete</button></div></div></div>
+
+    <div id="importModal" class="modal-overlay" onclick="closeModalOnOverlay(event,'importModal')"><div class="modal"><div class="modal-header"><h2>Import Projects</h2><button class="modal-close" onclick="closeModal('importModal')">&times;</button></div><div class="modal-body"><p id="importInfo" class="confirm-message"></p><div class="form-group" style="margin-top:1rem;"><label>Import Mode:</label><select id="importMode" style="margin-top:0.5rem;"><option value="merge">Merge (add new, update existing)</option><option value="replace">Replace All (delete existing)</option></select></div></div><div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('importModal')">Cancel</button><button class="btn btn-primary" onclick="executeImport()">Import</button></div></div></div>
+
+    <script>
+    const DB_NAME = 'ResearchCommandCenter', DB_VERSION = 1, STORE_NAME = 'projects';
+    let db = null, currentProjectId = null, currentImageId = null, notesSort = 'newest', pendingImportData = null, pendingImageData = null;
+
+    async function initDB() {
+        return new Promise((resolve, reject) => {
+            if (!window.indexedDB) { document.getElementById('errorBanner').classList.remove('hidden'); reject(new Error('IndexedDB not supported')); return; }
+            const req = indexedDB.open(DB_NAME, DB_VERSION);
+            req.onerror = () => { document.getElementById('errorBanner').classList.remove('hidden'); reject(req.error); };
+            req.onsuccess = () => { db = req.result; resolve(db); };
+            req.onupgradeneeded = (e) => { const d = e.target.result; if (!d.objectStoreNames.contains(STORE_NAME)) d.createObjectStore(STORE_NAME, { keyPath: 'id' }); };
+        });
+    }
+
+    async function getAllProjects() { return new Promise((res, rej) => { const r = db.transaction(STORE_NAME, 'readonly').objectStore(STORE_NAME).getAll(); r.onsuccess = () => res(r.result || []); r.onerror = () => rej(r.error); }); }
+    async function getProject(id) { return new Promise((res, rej) => { const r = db.transaction(STORE_NAME, 'readonly').objectStore(STORE_NAME).get(id); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+    async function putProject(p) { return new Promise((res, rej) => { const r = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME).put(p); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+    async function deleteProjectDB(id) { return new Promise((res, rej) => { const r = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME).delete(id); r.onsuccess = () => res(); r.onerror = () => rej(r.error); }); }
+    async function clearAllProjects() { return new Promise((res, rej) => { const r = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME).clear(); r.onsuccess = () => res(); r.onerror = () => rej(r.error); }); }
+
+    function showToast(msg, type = 'success') { const c = document.getElementById('toastContainer'), t = document.createElement('div'); t.className = 'toast ' + type; t.textContent = msg; c.appendChild(t); setTimeout(() => t.remove(), 3000); }
+    function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+    function closeModalOnOverlay(e, id) { if (e.target.classList.contains('modal-overlay')) closeModal(id); }
+    function toggleSection(id) { document.getElementById(id).classList.toggle('collapsed'); }
+    function getStatusClass(s) { return { 'Research': 'research', 'Draft': 'draft', 'Submitted': 'submitted', 'Revising': 'revising', 'On Hold': 'onhold', 'Published/Completed': 'published' }[s] || 'research'; }
+    function formatDate(s) { return s ? new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : ''; }
+    function formatDateTime(s) { return s ? new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : ''; }
+    function getDaysUntil(d) { if (!d) return null; const dd = new Date(d), t = new Date(); dd.setHours(0,0,0,0); t.setHours(0,0,0,0); return Math.ceil((dd - t) / 86400000); }
+    function generateId() { return Date.now().toString() + Math.random().toString(36).substr(2, 9); }
+    function escapeHtml(t) { if (!t) return ''; const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+    async function renderProjectList() {
+        const projects = await getAllProjects(), grid = document.getElementById('projectGrid'), empty = document.getElementById('emptyState');
+        if (projects.length === 0) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
+        empty.classList.add('hidden');
+        let f = filterAndSortProjects(projects);
+        if (f.length === 0) { grid.innerHTML = '<div class="empty-state"><p>No projects match your filters.</p></div>'; return; }
+        grid.innerHTML = f.map(p => {
+            const sc = getStatusClass(p.status), thumb = p.images?.length > 0 ? '<img src="' + p.images[0].imageData + '" alt="">' : '<div class="placeholder">📄</div>';
+            const days = getDaysUntil(p.deadline); let dlText = '', dlClass = '';
+            if (p.deadline) { if (days < 0) { dlText = '⚠️ Past due (' + formatDate(p.deadline) + ')'; dlClass = 'urgent'; } else if (days === 0) { dlText = '⚠️ Due today'; dlClass = 'urgent'; } else if (days <= 14) { dlText = '📅 ' + days + ' days (' + formatDate(p.deadline) + ')'; dlClass = 'urgent'; } else { dlText = '📅 ' + formatDate(p.deadline); } }
+            return '<div class="project-card status-' + sc + '" onclick="showDetailView(\'' + p.id + '\')"><div class="project-card-thumbnail">' + thumb + '</div><div class="project-card-content"><div class="project-card-header"><span class="badge badge-type">' + p.type + '</span><span class="badge badge-status-' + sc + '">' + p.status + '</span></div><h3>' + escapeHtml(p.title) + '</h3>' + (p.description ? '<p class="project-card-description">' + escapeHtml(p.description) + '</p>' : '') + (dlText ? '<div class="project-card-footer"><span class="project-card-deadline ' + dlClass + '">' + dlText + '</span></div>' : '') + '</div></div>';
+        }).join('');
+    }
+
+    function filterAndSortProjects(projects) {
+        const search = document.getElementById('searchInput').value.toLowerCase(), status = document.getElementById('filterStatus').value, type = document.getElementById('filterType').value, sort = document.getElementById('sortBy').value;
+        let f = projects.filter(p => (!search || p.title.toLowerCase().includes(search) || (p.description && p.description.toLowerCase().includes(search)) || (p.argument && p.argument.toLowerCase().includes(search))) && (!status || p.status === status) && (!type || p.type === type));
+        f.sort((a, b) => { if (sort === 'deadline') { if (!a.deadline && !b.deadline) return 0; if (!a.deadline) return 1; if (!b.deadline) return -1; return new Date(a.deadline) - new Date(b.deadline); } if (sort === 'title') return a.title.localeCompare(b.title); if (sort === 'dateCreated') return new Date(b.dateCreated) - new Date(a.dateCreated); return new Date(b.dateModified) - new Date(a.dateModified); });
+        return f;
+    }
+
+    function filterProjects() { renderProjectList(); }
+    function showListView() { document.getElementById('listView').classList.remove('hidden'); document.getElementById('detailView').classList.remove('active'); currentProjectId = null; renderProjectList(); }
+
+    async function showDetailView(id) {
+        currentProjectId = id; const p = await getProject(id);
+        if (!p) { showToast('Project not found', 'error'); return; }
+        document.getElementById('listView').classList.add('hidden'); document.getElementById('detailView').classList.add('active');
+        document.getElementById('detailTitle').textContent = p.title;
+        document.getElementById('detailType').textContent = p.type;
+        const statusEl = document.getElementById('detailStatus'); statusEl.textContent = p.status; statusEl.className = 'badge badge-status-' + getStatusClass(p.status);
+        const descEl = document.getElementById('detailDescription'); descEl.textContent = p.description || ''; descEl.style.display = p.description ? 'block' : 'none';
+        const dlEl = document.getElementById('detailDeadline');
+        if (p.deadline) { const days = getDaysUntil(p.deadline); let txt = '📅 ' + formatDate(p.deadline); dlEl.classList.remove('urgent', 'hidden'); if (days < 0) { txt = '⚠️ Past due: ' + formatDate(p.deadline); dlEl.classList.add('urgent'); } else if (days <= 14) { txt = '📅 ' + formatDate(p.deadline) + ' (' + days + ' days)'; if (days <= 7) dlEl.classList.add('urgent'); } dlEl.textContent = txt; } else { dlEl.classList.add('hidden'); }
+        document.getElementById('detailDates').textContent = 'Created: ' + formatDateTime(p.dateCreated) + ' • Modified: ' + formatDateTime(p.dateModified);
+        const argText = document.getElementById('argumentText'); if (p.argument) { argText.textContent = p.argument; argText.classList.remove('argument-empty'); } else { argText.textContent = 'No argument/abstract added yet.'; argText.classList.add('argument-empty'); }
+        renderSources(p); renderImages(p); renderNotes(p); renderContacts(p); renderLinks(p);
+    }
+
+    function renderSources(p) {
+        const src = p.sources || []; document.getElementById('sourcesCount').textContent = src.length;
+        const list = document.getElementById('sourcesList');
+        if (src.length === 0) { list.innerHTML = '<li style="color:#94a3b8;font-style:italic;">No sources added yet.</li>'; return; }
+        list.innerHTML = src.map(s => '<li><div class="item-header"><div><div class="item-title">' + escapeHtml(s.title) + '</div>' + (s.archive ? '<div class="item-meta">📁 ' + escapeHtml(s.archive) + '</div>' : '') + (s.citation ? '<div class="item-meta" style="margin-top:0.25rem;">' + escapeHtml(s.citation) + '</div>' : '') + (s.fileLink ? '<div class="item-meta" style="margin-top:0.25rem;">🔗 <a href="' + escapeHtml(s.fileLink) + '" target="_blank" class="item-link">' + escapeHtml(s.fileLink) + '</a></div>' : '') + '</div><div class="item-actions"><button class="btn btn-secondary btn-small btn-icon" onclick="openSourceModal(\'' + s.id + '\')" title="Edit">✏️</button><button class="btn btn-danger btn-small btn-icon" onclick="confirmDeleteSource(\'' + s.id + '\')" title="Delete">🗑️</button></div></div>' + (s.notes ? '<div class="item-notes">' + escapeHtml(s.notes) + '</div>' : '') + '</li>').join('');
+    }
+
+    function renderImages(p) {
+        const imgs = p.images || []; document.getElementById('imagesCount').textContent = imgs.length;
+        const btn = document.getElementById('addImageBtn'); btn.disabled = imgs.length >= 5; btn.textContent = imgs.length >= 5 ? 'Max 5 images' : '+ Add Image';
+        const grid = document.getElementById('imagesGrid');
+        if (imgs.length === 0) { grid.innerHTML = '<p style="color:#94a3b8;font-style:italic;">No images added yet.</p>'; return; }
+        grid.innerHTML = imgs.map(i => '<div class="image-item" onclick="viewImage(\'' + i.id + '\')"><img src="' + i.imageData + '" alt="' + escapeHtml(i.caption || '') + '"><div class="image-overlay"><button class="btn btn-secondary btn-small" onclick="event.stopPropagation();viewImage(\'' + i.id + '\')">View</button></div></div>').join('');
+    }
+
+    function renderNotes(p) {
+        const notes = p.notes || []; document.getElementById('notesCount').textContent = notes.length;
+        const list = document.getElementById('notesList');
+        if (notes.length === 0) { list.innerHTML = '<p style="color:#94a3b8;font-style:italic;">No notes added yet.</p>'; return; }
+        let sorted = [...notes]; sorted.sort((a, b) => notesSort === 'newest' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
+        list.innerHTML = sorted.map(n => '<div class="note-item"><div class="item-header"><div class="note-date">' + formatDateTime(n.date) + '</div><div class="item-actions"><button class="btn btn-secondary btn-small btn-icon" onclick="openNoteModal(\'' + n.id + '\')" title="Edit">✏️</button><button class="btn btn-danger btn-small btn-icon" onclick="confirmDeleteNote(\'' + n.id + '\')" title="Delete">🗑️</button></div></div><div class="note-text">' + escapeHtml(n.text) + '</div></div>').join('');
+    }
+
+    function setNotesSort(s) { notesSort = s; document.getElementById('sortNewest').classList.toggle('active', s === 'newest'); document.getElementById('sortOldest').classList.toggle('active', s === 'oldest'); getProject(currentProjectId).then(renderNotes); }
+
+    function renderContacts(p) {
+        const contacts = p.contacts || []; document.getElementById('contactsCount').textContent = contacts.length;
+        const list = document.getElementById('contactsList');
+        if (contacts.length === 0) { list.innerHTML = '<li style="color:#94a3b8;font-style:italic;">No contacts added yet.</li>'; return; }
+        list.innerHTML = contacts.map(c => '<li><div class="item-header"><div><div class="item-title">' + escapeHtml(c.name) + '</div>' + (c.role ? '<div class="item-meta">' + escapeHtml(c.role) + '</div>' : '') + (c.email ? '<div class="item-meta">✉️ <a href="mailto:' + escapeHtml(c.email) + '" class="item-link">' + escapeHtml(c.email) + '</a></div>' : '') + (c.phone ? '<div class="item-meta">📞 ' + escapeHtml(c.phone) + '</div>' : '') + '</div><div class="item-actions"><button class="btn btn-secondary btn-small btn-icon" onclick="openContactModal(\'' + c.id + '\')" title="Edit">✏️</button><button class="btn btn-danger btn-small btn-icon" onclick="confirmDeleteContact(\'' + c.id + '\')" title="Delete">🗑️</button></div></div>' + (c.notes ? '<div class="item-notes">' + escapeHtml(c.notes) + '</div>' : '') + '</li>').join('');
+    }
+
+    function renderLinks(p) {
+        const links = p.links || []; document.getElementById('linksCount').textContent = links.length;
+        const list = document.getElementById('linksList');
+        if (links.length === 0) { list.innerHTML = '<li style="color:#94a3b8;font-style:italic;">No links added yet.</li>'; return; }
+        list.innerHTML = links.map(l => '<li><div class="item-header"><div><div class="item-title">' + escapeHtml(l.label) + '</div><div class="item-meta">🔗 <a href="' + escapeHtml(l.url) + '" target="_blank" class="item-link">' + escapeHtml(l.url) + '</a></div></div><div class="item-actions"><button class="btn btn-secondary btn-small btn-icon" onclick="openLinkModal(\'' + l.id + '\')" title="Edit">✏️</button><button class="btn btn-danger btn-small btn-icon" onclick="confirmDeleteLink(\'' + l.id + '\')" title="Delete">🗑️</button></div></div>' + (l.notes ? '<div class="item-notes">' + escapeHtml(l.notes) + '</div>' : '') + '</li>').join('');
+    }
+
+    function openProjectModal(id = null) {
+        document.getElementById('projectForm').reset(); document.getElementById('projectId').value = ''; document.getElementById('projectModalTitle').textContent = 'New Project';
+        if (id) { document.getElementById('projectModalTitle').textContent = 'Edit Project'; getProject(id).then(p => { document.getElementById('projectId').value = p.id; document.getElementById('projectTitle').value = p.title; document.getElementById('projectType').value = p.type; document.getElementById('projectStatus').value = p.status; document.getElementById('projectDescription').value = p.description || ''; document.getElementById('projectDeadline').value = p.deadline || ''; }); }
+        openModal('projectModal');
+    }
+    function openEditProjectModal() { openProjectModal(currentProjectId); }
+
+    async function saveProject(e) {
+        e.preventDefault(); const id = document.getElementById('projectId').value, now = new Date().toISOString(); let p;
+        if (id) { p = await getProject(id); p.title = document.getElementById('projectTitle').value; p.type = document.getElementById('projectType').value; p.status = document.getElementById('projectStatus').value; p.description = document.getElementById('projectDescription').value; p.deadline = document.getElementById('projectDeadline').value || null; p.dateModified = now; }
+        else { p = { id: generateId(), title: document.getElementById('projectTitle').value, type: document.getElementById('projectType').value, status: document.getElementById('projectStatus').value, description: document.getElementById('projectDescription').value, argument: '', deadline: document.getElementById('projectDeadline').value || null, dateCreated: now, dateModified: now, sources: [], images: [], notes: [], contacts: [], links: [] }; }
+        await putProject(p); closeModal('projectModal'); showToast(id ? 'Project updated' : 'Project created'); if (currentProjectId) showDetailView(currentProjectId); else renderProjectList();
+    }
+
+    function confirmDeleteProject() {
+        document.getElementById('confirmTitle').textContent = 'Delete Project'; document.getElementById('confirmMessage').textContent = 'Are you sure you want to delete this project?'; document.getElementById('confirmWarning').textContent = 'This action cannot be undone.';
+        document.getElementById('confirmBtn').onclick = async () => { await deleteProjectDB(currentProjectId); closeModal('confirmModal'); showToast('Project deleted'); showListView(); };
+        openModal('confirmModal');
+    }
+
+    function openArgumentModal() { getProject(currentProjectId).then(p => { document.getElementById('argumentInput').value = p.argument || ''; openModal('argumentModal'); }); }
+    async function saveArgument(e) { e.preventDefault(); const p = await getProject(currentProjectId); p.argument = document.getElementById('argumentInput').value; p.dateModified = new Date().toISOString(); await putProject(p); closeModal('argumentModal'); showToast('Argument saved'); showDetailView(currentProjectId); }
+
+    function openSourceModal(id = null) {
+        document.getElementById('sourceForm').reset(); document.getElementById('sourceId').value = ''; document.getElementById('sourceModalTitle').textContent = 'Add Source';
+        if (id) { document.getElementById('sourceModalTitle').textContent = 'Edit Source'; getProject(currentProjectId).then(p => { const s = p.sources.find(x => x.id === id); if (s) { document.getElementById('sourceId').value = s.id; document.getElementById('sourceTitle').value = s.title; document.getElementById('sourceArchive').value = s.archive || ''; document.getElementById('sourceCitation').value = s.citation || ''; document.getElementById('sourceFileLink').value = s.fileLink || ''; document.getElementById('sourceNotes').value = s.notes || ''; } }); }
+        openModal('sourceModal');
+    }
+
+    async function saveSource(e) {
+        e.preventDefault(); const p = await getProject(currentProjectId), sid = document.getElementById('sourceId').value;
+        const data = { id: sid || generateId(), title: document.getElementById('sourceTitle').value, archive: document.getElementById('sourceArchive').value, citation: document.getElementById('sourceCitation').value, fileLink: document.getElementById('sourceFileLink').value, notes: document.getElementById('sourceNotes').value };
+        if (sid) { const idx = p.sources.findIndex(x => x.id === sid); if (idx !== -1) p.sources[idx] = data; } else { p.sources = p.sources || []; p.sources.push(data); }
+        p.dateModified = new Date().toISOString(); await putProject(p); closeModal('sourceModal'); showToast(sid ? 'Source updated' : 'Source added'); showDetailView(currentProjectId);
+    }
+
+    function confirmDeleteSource(id) { document.getElementById('confirmTitle').textContent = 'Delete Source'; document.getElementById('confirmMessage').textContent = 'Delete this source?'; document.getElementById('confirmWarning').textContent = ''; document.getElementById('confirmBtn').onclick = async () => { const p = await getProject(currentProjectId); p.sources = p.sources.filter(x => x.id !== id); p.dateModified = new Date().toISOString(); await putProject(p); closeModal('confirmModal'); showToast('Source deleted'); showDetailView(currentProjectId); }; openModal('confirmModal'); }
+
+    function openImageModal(id = null) {
+        document.getElementById('imageForm').reset(); document.getElementById('imageId').value = ''; document.getElementById('imageModalTitle').textContent = 'Add Image';
+        document.getElementById('imagePreview').classList.add('hidden'); document.getElementById('imagePreview').innerHTML = ''; document.getElementById('imageError').classList.add('hidden');
+        document.getElementById('imageUploadGroup').style.display = 'block'; pendingImageData = null;
+        if (id) { document.getElementById('imageModalTitle').textContent = 'Edit Image'; document.getElementById('imageUploadGroup').style.display = 'none'; getProject(currentProjectId).then(p => { const img = p.images.find(x => x.id === id); if (img) { document.getElementById('imageId').value = img.id; document.getElementById('imageCaption').value = img.caption || ''; document.getElementById('imageAttribution').value = img.attribution || ''; document.getElementById('imageNotes').value = img.notes || ''; pendingImageData = img.imageData; } }); }
+        openModal('imageModal');
+    }
+
+    function previewImage(e) {
+        const file = e.target.files[0]; if (!file) return;
+        const err = document.getElementById('imageError'), prev = document.getElementById('imagePreview');
+        if (file.size > 500 * 1024) { err.textContent = 'Image exceeds 500KB. Choose a smaller file.'; err.classList.remove('hidden'); prev.classList.add('hidden'); pendingImageData = null; return; }
+        err.classList.add('hidden');
+        const reader = new FileReader(); reader.onload = (ev) => { pendingImageData = ev.target.result; prev.innerHTML = '<img src="' + pendingImageData + '" alt="Preview">'; prev.classList.remove('hidden'); }; reader.readAsDataURL(file);
+    }
+
+    async function saveImage(e) {
+        e.preventDefault(); const iid = document.getElementById('imageId').value;
+        if (!iid && !pendingImageData) { document.getElementById('imageError').textContent = 'Please select an image.'; document.getElementById('imageError').classList.remove('hidden'); return; }
+        const p = await getProject(currentProjectId);
+        const data = { id: iid || generateId(), imageData: pendingImageData, caption: document.getElementById('imageCaption').value, attribution: document.getElementById('imageAttribution').value, notes: document.getElementById('imageNotes').value };
+        if (iid) { const idx = p.images.findIndex(x => x.id === iid); if (idx !== -1) { data.imageData = data.imageData || p.images[idx].imageData; p.images[idx] = data; } }
+        else { p.images = p.images || []; if (p.images.length >= 5) { showToast('Max 5 images', 'error'); return; } p.images.push(data); }
+        p.dateModified = new Date().toISOString(); await putProject(p); closeModal('imageModal'); showToast(iid ? 'Image updated' : 'Image added'); showDetailView(currentProjectId);
+    }
+
+    async function viewImage(id) { currentImageId = id; const p = await getProject(currentProjectId), img = p.images.find(x => x.id === id); if (img) { document.getElementById('imageViewSrc').src = img.imageData; document.getElementById('imageViewCaption').textContent = img.caption || ''; document.getElementById('imageViewAttribution').textContent = img.attribution || ''; openModal('imageViewModal'); } }
+    function editCurrentImage() { closeModal('imageViewModal'); openImageModal(currentImageId); }
+    function deleteCurrentImage() { closeModal('imageViewModal'); confirmDeleteImage(currentImageId); }
+    function confirmDeleteImage(id) { document.getElementById('confirmTitle').textContent = 'Delete Image'; document.getElementById('confirmMessage').textContent = 'Delete this image?'; document.getElementById('confirmWarning').textContent = ''; document.getElementById('confirmBtn').onclick = async () => { const p = await getProject(currentProjectId); p.images = p.images.filter(x => x.id !== id); p.dateModified = new Date().toISOString(); await putProject(p); closeModal('confirmModal'); showToast('Image deleted'); showDetailView(currentProjectId); }; openModal('confirmModal'); }
+
+    function openNoteModal(id = null) {
+        document.getElementById('noteForm').reset(); document.getElementById('noteId').value = ''; document.getElementById('noteModalTitle').textContent = 'Add Note';
+        if (id) { document.getElementById('noteModalTitle').textContent = 'Edit Note'; getProject(currentProjectId).then(p => { const n = p.notes.find(x => x.id === id); if (n) { document.getElementById('noteId').value = n.id; document.getElementById('noteText').value = n.text; } }); }
+        openModal('noteModal');
+    }
+
+    async function saveNote(e) {
+        e.preventDefault(); const p = await getProject(currentProjectId), nid = document.getElementById('noteId').value;
+        if (nid) { const idx = p.notes.findIndex(x => x.id === nid); if (idx !== -1) p.notes[idx].text = document.getElementById('noteText').value; }
+        else { p.notes = p.notes || []; p.notes.push({ id: generateId(), date: new Date().toISOString(), text: document.getElementById('noteText').value }); }
+        p.dateModified = new Date().toISOString(); await putProject(p); closeModal('noteModal'); showToast(nid ? 'Note updated' : 'Note added'); showDetailView(currentProjectId);
+    }
+
+    function confirmDeleteNote(id) { document.getElementById('confirmTitle').textContent = 'Delete Note'; document.getElementById('confirmMessage').textContent = 'Delete this note?'; document.getElementById('confirmWarning').textContent = ''; document.getElementById('confirmBtn').onclick = async () => { const p = await getProject(currentProjectId); p.notes = p.notes.filter(x => x.id !== id); p.dateModified = new Date().toISOString(); await putProject(p); closeModal('confirmModal'); showToast('Note deleted'); showDetailView(currentProjectId); }; openModal('confirmModal'); }
+
+    function openContactModal(id = null) {
+        document.getElementById('contactForm').reset(); document.getElementById('contactId').value = ''; document.getElementById('contactModalTitle').textContent = 'Add Contact';
+        if (id) { document.getElementById('contactModalTitle').textContent = 'Edit Contact'; getProject(currentProjectId).then(p => { const c = p.contacts.find(x => x.id === id); if (c) { document.getElementById('contactId').value = c.id; document.getElementById('contactName').value = c.name; document.getElementById('contactRole').value = c.role || ''; document.getElementById('contactEmail').value = c.email || ''; document.getElementById('contactPhone').value = c.phone || ''; document.getElementById('contactNotes').value = c.notes || ''; } }); }
+        openModal('contactModal');
+    }
+
+    async function saveContact(e) {
+        e.preventDefault(); const p = await getProject(currentProjectId), cid = document.getElementById('contactId').value;
+        const data = { id: cid || generateId(), name: document.getElementById('contactName').value, role: document.getElementById('contactRole').value, email: document.getElementById('contactEmail').value, phone: document.getElementById('contactPhone').value, notes: document.getElementById('contactNotes').value };
+        if (cid) { const idx = p.contacts.findIndex(x => x.id === cid); if (idx !== -1) p.contacts[idx] = data; } else { p.contacts = p.contacts || []; p.contacts.push(data); }
+        p.dateModified = new Date().toISOString(); await putProject(p); closeModal('contactModal'); showToast(cid ? 'Contact updated' : 'Contact added'); showDetailView(currentProjectId);
+    }
+
+    function confirmDeleteContact(id) { document.getElementById('confirmTitle').textContent = 'Delete Contact'; document.getElementById('confirmMessage').textContent = 'Delete this contact?'; document.getElementById('confirmWarning').textContent = ''; document.getElementById('confirmBtn').onclick = async () => { const p = await getProject(currentProjectId); p.contacts = p.contacts.filter(x => x.id !== id); p.dateModified = new Date().toISOString(); await putProject(p); closeModal('confirmModal'); showToast('Contact deleted'); showDetailView(currentProjectId); }; openModal('confirmModal'); }
+
+    function openLinkModal(id = null) {
+        document.getElementById('linkForm').reset(); document.getElementById('linkId').value = ''; document.getElementById('linkModalTitle').textContent = 'Add Link';
+        if (id) { document.getElementById('linkModalTitle').textContent = 'Edit Link'; getProject(currentProjectId).then(p => { const l = p.links.find(x => x.id === id); if (l) { document.getElementById('linkId').value = l.id; document.getElementById('linkLabel').value = l.label; document.getElementById('linkUrl').value = l.url; document.getElementById('linkNotes').value = l.notes || ''; } }); }
+        openModal('linkModal');
+    }
+
+    async function saveLink(e) {
+        e.preventDefault(); const p = await getProject(currentProjectId), lid = document.getElementById('linkId').value;
+        const data = { id: lid || generateId(), label: document.getElementById('linkLabel').value, url: document.getElementById('linkUrl').value, notes: document.getElementById('linkNotes').value };
+        if (lid) { const idx = p.links.findIndex(x => x.id === lid); if (idx !== -1) p.links[idx] = data; } else { p.links = p.links || []; p.links.push(data); }
+        p.dateModified = new Date().toISOString(); await putProject(p); closeModal('linkModal'); showToast(lid ? 'Link updated' : 'Link added'); showDetailView(currentProjectId);
+    }
+
+    function confirmDeleteLink(id) { document.getElementById('confirmTitle').textContent = 'Delete Link'; document.getElementById('confirmMessage').textContent = 'Delete this link?'; document.getElementById('confirmWarning').textContent = ''; document.getElementById('confirmBtn').onclick = async () => { const p = await getProject(currentProjectId); p.links = p.links.filter(x => x.id !== id); p.dateModified = new Date().toISOString(); await putProject(p); closeModal('confirmModal'); showToast('Link deleted'); showDetailView(currentProjectId); }; openModal('confirmModal'); }
+
+    async function exportAllProjects() {
+        const projects = await getAllProjects(), data = JSON.stringify(projects, null, 2), blob = new Blob([data], { type: 'application/json' }), url = URL.createObjectURL(blob);
+        const date = new Date().toISOString().split('T')[0], a = document.createElement('a'); a.href = url; a.download = 'research-command-center-backup-' + date + '.json';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); showToast('Exported ' + projects.length + ' project(s)');
+    }
+
+    function handleImport(e) {
+        const file = e.target.files[0]; if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => { try { const data = JSON.parse(ev.target.result); if (!Array.isArray(data)) throw new Error('Expected array'); for (const p of data) if (!p.id || !p.title || !p.type || !p.status) throw new Error('Invalid project'); pendingImportData = data; document.getElementById('importInfo').textContent = 'Found ' + data.length + ' project(s) in backup.'; openModal('importModal'); } catch (err) { showToast('Invalid file: ' + err.message, 'error'); } };
+        reader.readAsText(file); e.target.value = '';
+    }
+
+    async function executeImport() {
+        if (!pendingImportData) return; const mode = document.getElementById('importMode').value;
+        try {
+            if (mode === 'replace') { await clearAllProjects(); for (const p of pendingImportData) await putProject(p); showToast('Replaced with ' + pendingImportData.length + ' project(s)'); }
+            else { let added = 0, updated = 0; for (const p of pendingImportData) { if (await getProject(p.id)) updated++; else added++; await putProject(p); } showToast('Imported: ' + added + ' added, ' + updated + ' updated'); }
+            closeModal('importModal'); pendingImportData = null;
+            if (currentProjectId) { const p = await getProject(currentProjectId); if (p) showDetailView(currentProjectId); else showListView(); } else renderProjectList();
+        } catch (err) { showToast('Import failed: ' + err.message, 'error'); }
+    }
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { const modals = document.querySelectorAll('.modal-overlay.active'); if (modals.length > 0) { modals[modals.length - 1].classList.remove('active'); document.body.style.overflow = ''; } } });
+
+    async function init() { try { await initDB(); renderProjectList(); } catch (err) { console.error('Init failed:', err); } }
+    init();
+    </script>
+</body>
+</html>
