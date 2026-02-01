@@ -288,22 +288,18 @@
         /* Back link - simple text */
         .back-link {
             display: inline-block;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             font-size: 0.875rem;
-            color: #000;
+            color: #666;
             text-decoration: none;
             cursor: pointer;
         }
 
         .back-link:hover {
-            text-decoration: underline;
+            color: #000;
         }
 
-        /* Hero Section - Image only, no overlay */
-        .detail-hero {
-            margin-bottom: 2rem;
-        }
-
+        /* Hero Image */
         .detail-hero-image-container {
             width: 100%;
             min-height: 400px;
@@ -319,40 +315,73 @@
             object-fit: cover;
         }
 
-        .detail-hero-content {
-            max-width: 800px;
+        /* Two-column layout */
+        .detail-content {
+            display: grid;
+            grid-template-columns: 65% 35%;
+            gap: 4rem;
         }
 
-        .detail-hero h2 {
-            font-size: 3rem;
+        /* Left column - main content */
+        .detail-main {
+            /* Main content area */
+        }
+
+        /* Title row with actions */
+        .detail-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-title {
+            font-size: 2.5rem;
             font-weight: 700;
             color: #000;
-            margin-bottom: 1rem;
-            line-height: 1.1;
+            line-height: 1.15;
             letter-spacing: -0.02em;
         }
 
-        .detail-hero-meta {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 0.75rem;
-        }
-
-        .detail-hero-description {
-            font-size: 1rem;
-            color: #444;
-            margin-bottom: 0.75rem;
-        }
-
-        .detail-hero-dates {
-            font-size: 1rem;
-            color: #999;
-            margin-bottom: 2rem;
-        }
-
-        .detail-hero-actions {
+        .detail-actions {
             display: flex;
             gap: 1rem;
+            flex-shrink: 0;
+            padding-top: 0.5rem;
+        }
+
+        .detail-meta {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Section styling */
+        .detail-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-header {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header .count {
+            font-weight: 400;
         }
 
         /* Text link style for actions */
@@ -360,15 +389,15 @@
             background: none;
             border: none;
             padding: 0;
-            font-size: 1rem;
+            font-size: 0.85rem;
             font-family: 'Inter', sans-serif;
-            color: #000;
+            color: #666;
             text-decoration: underline;
             cursor: pointer;
         }
 
         .text-link:hover {
-            color: #666;
+            color: #000;
         }
 
         .text-link-danger {
@@ -379,93 +408,38 @@
             color: #900;
         }
 
-        /* Content Sections - Magazine article style */
-        .content-sections {
-            margin-top: 3rem;
-            max-width: 800px;
+        .text-link-small {
+            font-size: 0.8rem;
         }
 
-        .content-section {
-            margin-bottom: 3rem;
-        }
-
-        .content-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .section-title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 1.25rem;
-        }
-
-        .section-title .count {
-            font-weight: 400;
-            color: #999;
-        }
-
-        .section-body {
-            font-size: 1rem;
+        /* Argument text */
+        .argument-text {
+            font-size: 1.1rem;
             line-height: 1.7;
             color: #333;
+            white-space: pre-wrap;
+        }
+
+        .argument-empty {
+            color: #999;
+            font-style: italic;
         }
 
         .section-action {
-            margin-top: 1.5rem;
+            margin-top: 1rem;
         }
 
-        /* Dashboard Grid - for multi-column layout */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            column-gap: 4rem;
-            row-gap: 3rem;
-            margin-top: 3rem;
+        /* Right column - sidebar */
+        .detail-sidebar {
+            /* Sidebar content */
         }
 
-        .dashboard-panel {
-            /* No background, no padding, no border */
+        .sidebar-section {
+            margin-bottom: 2.5rem;
         }
 
-        .dashboard-panel.panel-argument {
-            grid-column: 1 / 3;
-        }
-
-        .dashboard-panel.panel-notes {
-            grid-column: 1 / 3;
-        }
-
-        .dashboard-panel.panel-links {
-            grid-column: 1 / 3;
-        }
-
-        .panel-header {
-            margin-bottom: 1.25rem;
-        }
-
-        .panel-header h3 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .panel-header .count {
-            font-weight: 400;
-            color: #999;
-        }
-
-        .panel-content {
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .panel-actions {
-            margin-top: 1.5rem;
+        .sidebar-section:last-child {
+            margin-bottom: 0;
         }
 
         /* Argument Panel */
@@ -481,14 +455,14 @@
             font-style: italic;
         }
 
-        /* Notes */
+        /* Notes - main column */
         .notes-sort {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             font-size: 0.85rem;
             color: #999;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .notes-sort button {
@@ -505,11 +479,12 @@
         .notes-sort button.active {
             color: #000;
             font-weight: 600;
+            text-decoration: none;
         }
 
         .note-item {
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #e5e5e5;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
         }
 
         .note-item:first-child {
@@ -518,29 +493,36 @@
 
         .note-item:last-child {
             border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
         }
 
         .note-date {
             font-size: 0.85rem;
-            color: #999;
-            margin-bottom: 0.5rem;
+            color: #888;
         }
 
         .note-text {
             font-size: 1rem;
             color: #333;
             white-space: pre-wrap;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
-        /* Item List */
+        /* Item List - sidebar compact style */
         .item-list {
             list-style: none;
         }
 
         .item-list li {
-            padding: 1.25rem 0;
-            border-bottom: 1px solid #e5e5e5;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
         }
 
         .item-list li:first-child {
@@ -549,73 +531,79 @@
 
         .item-list li:last-child {
             border-bottom: none;
+            padding-bottom: 0;
         }
 
         .item-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         .item-title {
             font-weight: 600;
             color: #000;
-            margin-bottom: 0.375rem;
-            font-size: 1rem;
+            margin-bottom: 0.125rem;
+            font-size: 0.9rem;
         }
 
         .item-meta {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #666;
-            margin-top: 0.25rem;
         }
 
         .item-notes {
-            font-size: 1rem;
+            font-size: 0.85rem;
             color: #666;
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px dashed #e5e5e5;
+            margin-top: 0.5rem;
         }
 
         .item-actions {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.5rem;
             flex-shrink: 0;
             opacity: 0;
             transition: opacity 0.15s;
         }
 
         .item-list li:hover .item-actions,
-        .note-item:hover .item-actions {
+        .note-item:hover .note-actions {
             opacity: 1;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.15s;
         }
 
         .item-link {
             color: #000;
             text-decoration: underline;
             word-break: break-all;
+            font-size: 0.85rem;
         }
 
         .item-link:hover {
             color: #666;
         }
 
-        /* Text link buttons for item actions */
+        /* Action links */
         .action-link {
             background: none;
             border: none;
             padding: 0;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-family: 'Inter', sans-serif;
-            color: #000;
+            color: #888;
             text-decoration: underline;
             cursor: pointer;
         }
 
         .action-link:hover {
-            color: #666;
+            color: #000;
         }
 
         .action-link-danger {
@@ -626,56 +614,29 @@
             color: #900;
         }
 
-        /* Images Section */
-        .section {
-            margin-bottom: 3rem;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            margin-bottom: 1.25rem;
-        }
-
-        .section-header h3 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            display: flex;
-            align-items: center;
+        /* Images grid - sidebar */
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 0.5rem;
         }
 
-        .section-header .count {
-            font-size: 0.85rem;
-            color: #999;
-            font-weight: 400;
+        .image-item {
+            aspect-ratio: 1;
+            overflow: hidden;
+            cursor: pointer;
+            background: #f0f0f0;
         }
 
-        .section-header .toggle {
-            font-size: 0.85rem;
-            color: #999;
-            transition: transform 0.2s;
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.2s;
         }
 
-        .section.collapsed .section-header .toggle {
-            transform: rotate(-90deg);
-        }
-
-        .section-content {
-            /* visible by default */
-        }
-
-        .section.collapsed .section-content {
-            display: none;
-        }
-
-        .section-actions {
-            margin-top: 1.5rem;
+        .image-item:hover img {
+            opacity: 0.8;
         }
 
         .images-grid {
@@ -971,15 +932,16 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .dashboard-grid {
+            .detail-content {
                 grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
-            .dashboard-panel.panel-argument,
-            .dashboard-panel.panel-notes,
-            .dashboard-panel.panel-sources,
-            .dashboard-panel.panel-contacts,
-            .dashboard-panel.panel-links { grid-column: 1; }
+            .detail-sidebar {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -999,9 +961,13 @@
 
             .detail-hero-image-container { min-height: 250px; }
             .detail-hero-image { min-height: 250px; }
-            .detail-hero h2 { font-size: 2rem; }
+            .detail-title { font-size: 1.75rem; }
+            .detail-title-row { flex-direction: column; gap: 1rem; }
+            .detail-actions { padding-top: 0; }
 
-            .dashboard-grid { grid-template-columns: 1fr; column-gap: 0; }
+            .detail-sidebar {
+                grid-template-columns: 1fr;
+            }
 
             .form-row { grid-template-columns: 1fr; }
         }
@@ -1075,100 +1041,83 @@
         <div id="detailView" class="detail-view">
             <a class="back-link" onclick="showListView()">&larr; Back to Projects</a>
 
-            <div class="detail-hero">
-                <div class="detail-hero-image-container">
-                    <img id="detailHeroImage" class="detail-hero-image" src="" alt="">
-                </div>
-                <div class="detail-hero-content">
-                    <h2 id="detailTitle"></h2>
-                    <div id="detailMeta" class="detail-hero-meta"></div>
-                    <p id="detailDescription" class="detail-hero-description"></p>
-                    <p id="detailDates" class="detail-hero-dates"></p>
-                    <div class="detail-hero-actions">
-                        <button class="text-link" onclick="openEditProjectModal()">Edit Project</button>
-                        <button class="text-link text-link-danger" onclick="confirmDeleteProject()">Delete Project</button>
-                    </div>
-                </div>
+            <!-- Hero Image -->
+            <div class="detail-hero-image-container">
+                <img id="detailHeroImage" class="detail-hero-image" src="" alt="">
             </div>
 
-            <!-- Images Section -->
-            <div id="imagesSection" class="section">
-                <div class="section-header" onclick="toggleSection('imagesSection')">
-                    <h3>Images <span id="imagesCount" class="count">0</span></h3>
-                    <span class="toggle">&#9660;</span>
-                </div>
-                <div class="section-content">
-                    <div id="imagesGrid" class="images-grid"></div>
-                    <div class="section-actions">
-                        <button id="addImageBtn" class="text-link" onclick="openImageModal()">Add Image</button>
+            <!-- Two-column layout -->
+            <div class="detail-content">
+                <!-- Left Column: Main Content -->
+                <div class="detail-main">
+                    <div class="detail-title-row">
+                        <h1 id="detailTitle" class="detail-title"></h1>
+                        <div class="detail-actions">
+                            <button class="text-link text-link-small" onclick="openEditProjectModal()">Edit</button>
+                            <button class="text-link text-link-small text-link-danger" onclick="confirmDeleteProject()">Delete</button>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <div id="detailMeta" class="detail-meta"></div>
 
-            <!-- Dashboard Grid -->
-            <div class="dashboard-grid">
-                <div class="dashboard-panel panel-argument">
-                    <div class="panel-header">
-                        <h3>Argument / Abstract</h3>
-                    </div>
-                    <div class="panel-content">
+                    <!-- Argument Section -->
+                    <div class="detail-section">
+                        <div class="section-header">
+                            <span>Argument / Abstract</span>
+                            <button class="text-link text-link-small" onclick="openArgumentModal()">Edit</button>
+                        </div>
                         <div id="argumentText" class="argument-text"></div>
                     </div>
-                    <div class="panel-actions">
-                        <button class="text-link" onclick="openArgumentModal()">Edit</button>
-                    </div>
-                </div>
 
-                <div class="dashboard-panel panel-notes">
-                    <div class="panel-header">
-                        <h3>Notes <span id="notesCount" class="count">0</span></h3>
-                    </div>
-                    <div class="panel-content">
+                    <!-- Notes Section -->
+                    <div class="detail-section">
+                        <div class="section-header">
+                            <span>Notes <span id="notesCount" class="count">0</span></span>
+                            <button class="text-link text-link-small" onclick="openNoteModal()">Add</button>
+                        </div>
                         <div class="notes-sort">
-                            <span>Sort:</span>
                             <button id="sortNewest" class="active" onclick="setNotesSort('newest')">Newest</button>
                             <button id="sortOldest" onclick="setNotesSort('oldest')">Oldest</button>
                         </div>
                         <div id="notesList"></div>
                     </div>
-                    <div class="panel-actions">
-                        <button class="text-link" onclick="openNoteModal()">Add Note</button>
-                    </div>
                 </div>
 
-                <div class="dashboard-panel panel-sources">
-                    <div class="panel-header">
-                        <h3>Sources <span id="sourcesCount" class="count">0</span></h3>
+                <!-- Right Column: Sidebar -->
+                <div class="detail-sidebar">
+                    <!-- Images Section -->
+                    <div class="sidebar-section">
+                        <div class="section-header">
+                            <span>Images <span id="imagesCount" class="count">0</span></span>
+                            <button id="addImageBtn" class="text-link text-link-small" onclick="openImageModal()">Add</button>
+                        </div>
+                        <div id="imagesGrid" class="images-grid"></div>
                     </div>
-                    <div class="panel-content">
+
+                    <!-- Sources Section -->
+                    <div class="sidebar-section">
+                        <div class="section-header">
+                            <span>Sources <span id="sourcesCount" class="count">0</span></span>
+                            <button class="text-link text-link-small" onclick="openSourceModal()">Add</button>
+                        </div>
                         <ul id="sourcesList" class="item-list"></ul>
                     </div>
-                    <div class="panel-actions">
-                        <button class="text-link" onclick="openSourceModal()">Add Source</button>
-                    </div>
-                </div>
 
-                <div class="dashboard-panel panel-contacts">
-                    <div class="panel-header">
-                        <h3>Contacts <span id="contactsCount" class="count">0</span></h3>
-                    </div>
-                    <div class="panel-content">
+                    <!-- Contacts Section -->
+                    <div class="sidebar-section">
+                        <div class="section-header">
+                            <span>Contacts <span id="contactsCount" class="count">0</span></span>
+                            <button class="text-link text-link-small" onclick="openContactModal()">Add</button>
+                        </div>
                         <ul id="contactsList" class="item-list"></ul>
                     </div>
-                    <div class="panel-actions">
-                        <button class="text-link" onclick="openContactModal()">Add Contact</button>
-                    </div>
-                </div>
 
-                <div class="dashboard-panel panel-links">
-                    <div class="panel-header">
-                        <h3>Links <span id="linksCount" class="count">0</span></h3>
-                    </div>
-                    <div class="panel-content">
+                    <!-- Links Section -->
+                    <div class="sidebar-section">
+                        <div class="section-header">
+                            <span>Links <span id="linksCount" class="count">0</span></span>
+                            <button class="text-link text-link-small" onclick="openLinkModal()">Add</button>
+                        </div>
                         <ul id="linksList" class="item-list"></ul>
-                    </div>
-                    <div class="panel-actions">
-                        <button class="text-link" onclick="openLinkModal()">Add Link</button>
                     </div>
                 </div>
             </div>
@@ -1573,19 +1522,14 @@
         }
         document.getElementById('detailMeta').textContent = metaParts.join(' · ');
 
-        const descEl = document.getElementById('detailDescription');
-        descEl.textContent = p.description || '';
-        descEl.style.display = p.description ? 'block' : 'none';
-
-        document.getElementById('detailDates').textContent = 'Created ' + formatDateTime(p.dateCreated) + ' · Modified ' + formatDateTime(p.dateModified);
-
         // Hero image
         const heroImg = document.getElementById('detailHeroImage');
+        const heroContainer = document.querySelector('.detail-hero-image-container');
         if (p.images?.length > 0) {
             heroImg.src = p.images[0].imageData;
-            heroImg.style.display = 'block';
+            heroContainer.style.display = 'block';
         } else {
-            heroImg.style.display = 'none';
+            heroContainer.style.display = 'none';
         }
 
         const argText = document.getElementById('argumentText');
@@ -1647,9 +1591,9 @@
         let sorted = [...notes];
         sorted.sort((a, b) => notesSort === 'newest' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
         list.innerHTML = sorted.map(n => `<div class="note-item">
-            <div class="item-header">
+            <div class="note-header">
                 <div class="note-date">${formatDateTime(n.date)}</div>
-                <div class="item-actions">
+                <div class="note-actions">
                     <button class="action-link" onclick="openNoteModal('${n.id}')">Edit</button>
                     <button class="action-link action-link-danger" onclick="confirmDeleteNote('${n.id}')">Delete</button>
                 </div>
