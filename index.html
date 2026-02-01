@@ -219,37 +219,42 @@
         }
 
         .project-card-content {
-            /* No padding, no background */
+            padding-top: 0.25rem;
         }
 
         .project-card h3 {
-            font-size: 1.75rem;
+            font-size: 1.85rem;
             font-weight: 700;
             color: #000;
             margin-bottom: 0.5rem;
-            line-height: 1.25;
+            line-height: 1.2;
         }
 
         .project-card-meta {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
         }
 
         .project-card-description {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #444;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             line-height: 1.5;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .project-card-deadline {
-            font-size: 1rem;
-            color: #999;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0066cc;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eee;
         }
 
         .project-card-deadline.urgent {
@@ -285,46 +290,30 @@
         .detail-view.active { display: block; }
         .list-view.hidden { display: none; }
 
-        /* Back link - simple text */
+        /* Back link - prominent */
         .back-link {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             margin-bottom: 1.5rem;
-            font-size: 0.875rem;
-            color: #666;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #000;
             text-decoration: none;
             cursor: pointer;
         }
 
         .back-link:hover {
-            color: #000;
+            color: #666;
         }
 
-        /* Hero Image */
-        .detail-hero-image-container {
-            width: 100%;
-            min-height: 400px;
-            background: #f5f5f5;
-            margin-bottom: 2rem;
-            overflow: hidden;
+        .back-arrow {
+            font-size: 1.2rem;
         }
 
-        .detail-hero-image {
-            width: 100%;
-            height: 100%;
-            min-height: 400px;
-            object-fit: cover;
-        }
-
-        /* Two-column layout */
-        .detail-content {
-            display: grid;
-            grid-template-columns: 65% 35%;
-            gap: 4rem;
-        }
-
-        /* Left column - main content */
-        .detail-main {
-            /* Main content area */
+        /* Detail header - above hero */
+        .detail-header {
+            margin-bottom: 1.5rem;
         }
 
         /* Title row with actions */
@@ -352,9 +341,36 @@
         }
 
         .detail-meta {
-            font-size: 1rem;
+            font-size: 1.15rem;
             color: #666;
+        }
+
+        /* Hero Image - banner style */
+        .detail-hero-image-container {
+            width: 100%;
+            max-height: 200px;
+            background: #f5f5f5;
             margin-bottom: 2.5rem;
+            overflow: hidden;
+        }
+
+        .detail-hero-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Two-column layout */
+        .detail-content {
+            display: grid;
+            grid-template-columns: 65% 35%;
+            gap: 3rem;
+            padding: 0 2rem;
+        }
+
+        /* Left column - main content */
+        .detail-main {
+            /* Main content area */
         }
 
         /* Section styling */
@@ -367,11 +383,11 @@
         }
 
         .section-header {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #888;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #000;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.08em;
             padding-bottom: 0.75rem;
             border-bottom: 1px solid #e0e0e0;
             margin-bottom: 1rem;
@@ -382,6 +398,7 @@
 
         .section-header .count {
             font-weight: 400;
+            color: #888;
         }
 
         /* Text link style for actions */
@@ -389,7 +406,7 @@
             background: none;
             border: none;
             padding: 0;
-            font-size: 0.85rem;
+            font-size: 1.1rem;
             font-family: 'Inter', sans-serif;
             color: #666;
             text-decoration: underline;
@@ -408,21 +425,51 @@
             color: #900;
         }
 
-        .text-link-small {
-            font-size: 0.8rem;
-        }
-
         /* Argument text */
         .argument-text {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             line-height: 1.7;
             color: #333;
             white-space: pre-wrap;
         }
 
         .argument-empty {
+            font-size: 1.2rem;
             color: #999;
             font-style: italic;
+        }
+
+        /* Deadline Widget */
+        .deadline-widget {
+            background: #f5f5f5;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .deadline-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .deadline-date {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 0.25rem;
+        }
+
+        .deadline-days {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #C45C3E;
+        }
+
+        .deadline-days.past {
+            color: #c00;
         }
 
         .section-action {
@@ -442,25 +489,12 @@
             margin-bottom: 0;
         }
 
-        /* Argument Panel */
-        .argument-text {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: #333;
-            white-space: pre-wrap;
-        }
-
-        .argument-empty {
-            color: #999;
-            font-style: italic;
-        }
-
         /* Notes - main column */
         .notes-sort {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            font-size: 0.85rem;
+            font-size: 1.1rem;
             color: #999;
             margin-bottom: 1rem;
         }
@@ -469,7 +503,7 @@
             background: none;
             border: none;
             padding: 0;
-            font-size: 0.85rem;
+            font-size: 1.1rem;
             font-family: 'Inter', sans-serif;
             color: #666;
             cursor: pointer;
@@ -483,7 +517,7 @@
         }
 
         .note-item {
-            padding: 1rem 0;
+            padding: 1.25rem 0;
             border-bottom: 1px solid #eee;
         }
 
@@ -504,24 +538,24 @@
         }
 
         .note-date {
-            font-size: 0.85rem;
+            font-size: 1.1rem;
             color: #888;
         }
 
         .note-text {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #333;
             white-space: pre-wrap;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* Item List - sidebar compact style */
+        /* Item List - sidebar style */
         .item-list {
             list-style: none;
         }
 
         .item-list li {
-            padding: 0.75rem 0;
+            padding: 1rem 0;
             border-bottom: 1px solid #eee;
         }
 
@@ -544,19 +578,21 @@
         .item-title {
             font-weight: 600;
             color: #000;
-            margin-bottom: 0.125rem;
-            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            font-size: 1.2rem;
         }
 
         .item-meta {
-            font-size: 0.85rem;
+            font-size: 1.1rem;
             color: #666;
+            line-height: 1.7;
         }
 
         .item-notes {
-            font-size: 0.85rem;
+            font-size: 1.1rem;
             color: #666;
             margin-top: 0.5rem;
+            line-height: 1.7;
         }
 
         .item-actions {
@@ -583,7 +619,7 @@
             color: #000;
             text-decoration: underline;
             word-break: break-all;
-            font-size: 0.85rem;
+            font-size: 1.1rem;
         }
 
         .item-link:hover {
@@ -595,7 +631,7 @@
             background: none;
             border: none;
             padding: 0;
-            font-size: 0.75rem;
+            font-size: 1.05rem;
             font-family: 'Inter', sans-serif;
             color: #888;
             text-decoration: underline;
@@ -959,11 +995,13 @@
             .project-grid { grid-template-columns: 1fr; row-gap: 2.5rem; }
             .project-card h3 { font-size: 1.5rem; }
 
-            .detail-hero-image-container { min-height: 250px; }
-            .detail-hero-image { min-height: 250px; }
+            .detail-hero-image-container { max-height: 200px; }
+            .detail-hero-image { height: 200px; }
+            .detail-content { padding: 0; }
             .detail-title { font-size: 1.75rem; }
-            .detail-title-row { flex-direction: column; gap: 1rem; }
+            .detail-title-row { flex-direction: column; gap: 0.75rem; }
             .detail-actions { padding-top: 0; }
+            .detail-meta { font-size: 1rem; }
 
             .detail-sidebar {
                 grid-template-columns: 1fr;
@@ -1039,7 +1077,19 @@
         </div>
 
         <div id="detailView" class="detail-view">
-            <a class="back-link" onclick="showListView()">&larr; Back to Projects</a>
+            <a class="back-link" onclick="showListView()"><span class="back-arrow">&larr;</span> Back to Projects</a>
+
+            <!-- Title Section - Above Hero -->
+            <div class="detail-header">
+                <div class="detail-title-row">
+                    <h1 id="detailTitle" class="detail-title"></h1>
+                    <div class="detail-actions">
+                        <button class="text-link" onclick="openEditProjectModal()">Edit</button>
+                        <button class="text-link text-link-danger" onclick="confirmDeleteProject()">Delete</button>
+                    </div>
+                </div>
+                <div id="detailMeta" class="detail-meta"></div>
+            </div>
 
             <!-- Hero Image -->
             <div class="detail-hero-image-container">
@@ -1050,20 +1100,12 @@
             <div class="detail-content">
                 <!-- Left Column: Main Content -->
                 <div class="detail-main">
-                    <div class="detail-title-row">
-                        <h1 id="detailTitle" class="detail-title"></h1>
-                        <div class="detail-actions">
-                            <button class="text-link text-link-small" onclick="openEditProjectModal()">Edit</button>
-                            <button class="text-link text-link-small text-link-danger" onclick="confirmDeleteProject()">Delete</button>
-                        </div>
-                    </div>
-                    <div id="detailMeta" class="detail-meta"></div>
 
                     <!-- Argument Section -->
                     <div class="detail-section">
                         <div class="section-header">
                             <span>Argument / Abstract</span>
-                            <button class="text-link text-link-small" onclick="openArgumentModal()">Edit</button>
+                            <button class="text-link" onclick="openArgumentModal()">Edit</button>
                         </div>
                         <div id="argumentText" class="argument-text"></div>
                     </div>
@@ -1072,7 +1114,7 @@
                     <div class="detail-section">
                         <div class="section-header">
                             <span>Notes <span id="notesCount" class="count">0</span></span>
-                            <button class="text-link text-link-small" onclick="openNoteModal()">Add</button>
+                            <button class="text-link" onclick="openNoteModal()">Add</button>
                         </div>
                         <div class="notes-sort">
                             <button id="sortNewest" class="active" onclick="setNotesSort('newest')">Newest</button>
@@ -1084,11 +1126,18 @@
 
                 <!-- Right Column: Sidebar -->
                 <div class="detail-sidebar">
+                    <!-- Deadline Widget -->
+                    <div id="deadlineWidget" class="deadline-widget" style="display: none;">
+                        <div class="deadline-label">Deadline</div>
+                        <div id="deadlineDate" class="deadline-date"></div>
+                        <div id="deadlineDays" class="deadline-days"></div>
+                    </div>
+
                     <!-- Images Section -->
                     <div class="sidebar-section">
                         <div class="section-header">
                             <span>Images <span id="imagesCount" class="count">0</span></span>
-                            <button id="addImageBtn" class="text-link text-link-small" onclick="openImageModal()">Add</button>
+                            <button id="addImageBtn" class="text-link" onclick="openImageModal()">Add</button>
                         </div>
                         <div id="imagesGrid" class="images-grid"></div>
                     </div>
@@ -1097,7 +1146,7 @@
                     <div class="sidebar-section">
                         <div class="section-header">
                             <span>Sources <span id="sourcesCount" class="count">0</span></span>
-                            <button class="text-link text-link-small" onclick="openSourceModal()">Add</button>
+                            <button class="text-link" onclick="openSourceModal()">Add</button>
                         </div>
                         <ul id="sourcesList" class="item-list"></ul>
                     </div>
@@ -1106,7 +1155,7 @@
                     <div class="sidebar-section">
                         <div class="section-header">
                             <span>Contacts <span id="contactsCount" class="count">0</span></span>
-                            <button class="text-link text-link-small" onclick="openContactModal()">Add</button>
+                            <button class="text-link" onclick="openContactModal()">Add</button>
                         </div>
                         <ul id="contactsList" class="item-list"></ul>
                     </div>
@@ -1115,7 +1164,7 @@
                     <div class="sidebar-section">
                         <div class="section-header">
                             <span>Links <span id="linksCount" class="count">0</span></span>
-                            <button class="text-link text-link-small" onclick="openLinkModal()">Add</button>
+                            <button class="text-link" onclick="openLinkModal()">Add</button>
                         </div>
                         <ul id="linksList" class="item-list"></ul>
                     </div>
@@ -1511,16 +1560,30 @@
 
         document.getElementById('detailTitle').textContent = p.title;
 
-        // Meta line: Type · Status · Deadline
-        const days = getDaysUntil(p.deadline);
-        let metaParts = [p.type, p.status];
+        // Meta line: Type · Status (no deadline)
+        document.getElementById('detailMeta').textContent = p.type + ' · ' + p.status;
+
+        // Deadline widget
+        const deadlineWidget = document.getElementById('deadlineWidget');
+        const deadlineDate = document.getElementById('deadlineDate');
+        const deadlineDays = document.getElementById('deadlineDays');
         if (p.deadline) {
-            let dlText = formatDate(p.deadline);
-            if (days < 0) dlText = 'Past due: ' + dlText;
-            else if (days <= 14) dlText = dlText + ' (' + days + ' days)';
-            metaParts.push(dlText);
+            const days = getDaysUntil(p.deadline);
+            deadlineWidget.style.display = 'block';
+            deadlineDate.textContent = formatDate(p.deadline);
+            if (days < 0) {
+                deadlineDays.textContent = Math.abs(days) + ' days overdue';
+                deadlineDays.className = 'deadline-days past';
+            } else if (days === 0) {
+                deadlineDays.textContent = 'Due today';
+                deadlineDays.className = 'deadline-days past';
+            } else {
+                deadlineDays.textContent = days + ' days';
+                deadlineDays.className = 'deadline-days';
+            }
+        } else {
+            deadlineWidget.style.display = 'none';
         }
-        document.getElementById('detailMeta').textContent = metaParts.join(' · ');
 
         // Hero image
         const heroImg = document.getElementById('detailHeroImage');
