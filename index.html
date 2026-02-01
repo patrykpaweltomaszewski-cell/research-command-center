@@ -3,174 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Command Center</title>
+    <title>Research Projects</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-primary: #f8f7f4;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f0efeb;
-            --border: #e8e6e1;
-            --border-light: #f0efeb;
-
-            --text-primary: #1a1a1a;
-            --text-secondary: #5a5a5a;
-            --text-tertiary: #8a8a8a;
-
-            --accent: #4a7c7c;
-            --accent-hover: #3d6868;
-            --accent-light: #e8f0f0;
-
-            --status-research: #4a7c7c;
-            --status-draft: #7c6a4a;
-            --status-submitted: #7c4a6a;
-            --status-revising: #4a5a7c;
-            --status-onhold: #8a8a8a;
-            --status-published: #4a7c5a;
-
-            --danger: #c45a5a;
-            --danger-light: #faf0f0;
-
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
-
-            --radius-sm: 6px;
-            --radius-md: 10px;
-            --radius-lg: 16px;
-        }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
+            background: #fff;
             min-height: 100vh;
-            color: var(--text-primary);
-            line-height: 1.6;
+            color: #000;
+            line-height: 1.5;
             font-size: 15px;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Display font for titles */
-        .display-title {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
         /* Header */
         .header {
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 2rem 0;
+            border-bottom: 1px solid #e5e5e5;
         }
 
         .header-content {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 0 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .header h1 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.75rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #000;
+            letter-spacing: -0.03em;
         }
 
         .header-actions {
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
         }
 
         /* Buttons */
         .btn {
-            padding: 0.625rem 1.125rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
+            padding: 0.625rem 1rem;
+            font-size: 0.875rem;
             font-weight: 500;
             font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: all 0.15s ease;
-            border: none;
+            transition: background 0.15s;
+            border: 1px solid #000;
+            background: #fff;
+            color: #000;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.375rem;
+        }
+
+        .btn:hover {
+            background: #000;
+            color: #fff;
         }
 
         .btn-primary {
-            background: var(--accent);
-            color: white;
+            background: #000;
+            color: #fff;
         }
 
         .btn-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-secondary {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--text-tertiary);
+            background: #333;
         }
 
         .btn-danger {
-            background: var(--danger-light);
-            color: var(--danger);
-            border: 1px solid #e8d0d0;
+            border-color: #c00;
+            color: #c00;
         }
 
         .btn-danger:hover {
-            background: var(--danger);
-            color: white;
+            background: #c00;
+            color: #fff;
         }
 
         .btn-small {
-            padding: 0.4rem 0.75rem;
+            padding: 0.375rem 0.625rem;
             font-size: 0.8rem;
-        }
-
-        .btn-icon {
-            padding: 0.5rem;
-            min-width: auto;
         }
 
         /* Main Container */
         .main-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2.5rem;
         }
 
         /* Toolbar */
         .toolbar {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-md);
-            padding: 1rem 1.25rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-sm);
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 1.5rem;
             align-items: center;
-            border: 1px solid var(--border);
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e5e5;
         }
 
         .search-box {
@@ -181,35 +120,32 @@
 
         .search-box input {
             width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.75rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid #e5e5e5;
+            font-size: 0.9rem;
             font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: #fff;
+            color: #000;
         }
 
         .search-box input::placeholder {
-            color: var(--text-tertiary);
+            color: #999;
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: var(--accent);
-            background: var(--bg-secondary);
-            box-shadow: 0 0 0 3px var(--accent-light);
+            border-color: #000;
         }
 
         .search-box::before {
             content: "";
             position: absolute;
-            left: 1rem;
+            left: 0.875rem;
             top: 50%;
             transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%238a8a8a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E");
+            width: 14px;
+            height: 14px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23999'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E");
             background-size: contain;
         }
 
@@ -221,167 +157,127 @@
 
         .filter-group label {
             font-size: 0.75rem;
-            color: var(--text-tertiary);
-            font-weight: 600;
+            color: #666;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .filter-group select {
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
+            padding: 0.75rem 0.875rem;
+            border: 1px solid #e5e5e5;
+            font-size: 0.875rem;
             font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: #fff;
+            color: #000;
             cursor: pointer;
         }
 
         .filter-group select:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: #000;
         }
 
-        /* Project Grid */
+        /* Project Grid - MoMA style */
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            column-gap: 2rem;
+            row-gap: 3rem;
         }
 
         .project-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-md);
-            overflow: hidden;
             cursor: pointer;
-            transition: all 0.2s ease;
-            border: 1px solid var(--border);
-        }
-
-        .project-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-            border-color: transparent;
         }
 
         .project-card-thumbnail {
-            height: 180px;
-            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-primary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            aspect-ratio: 4/3;
+            background: #f5f5f5;
+            margin-bottom: 1rem;
             overflow: hidden;
-            position: relative;
         }
 
         .project-card-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: opacity 0.2s;
+        }
+
+        .project-card:hover .project-card-thumbnail img {
+            opacity: 0.85;
         }
 
         .project-card-thumbnail .placeholder {
-            font-size: 3rem;
-            color: var(--text-tertiary);
-            opacity: 0.3;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ccc;
+            font-size: 2rem;
         }
 
         .project-card-content {
-            padding: 1.25rem 1.5rem 1.5rem;
-        }
-
-        .project-card-badges {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
-            flex-wrap: wrap;
+            /* No padding, no background */
         }
 
         .project-card h3 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000;
             margin-bottom: 0.5rem;
             line-height: 1.25;
-            letter-spacing: -0.01em;
+        }
+
+        .project-card-meta {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
         }
 
         .project-card-description {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
+            font-size: 1rem;
+            color: #444;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
             line-height: 1.5;
-        }
-
-        .project-card-footer {
-            margin-top: 1.25rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 0.5rem;
         }
 
         .project-card-deadline {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.375rem;
-            font-weight: 500;
+            font-size: 1rem;
+            color: #999;
         }
 
         .project-card-deadline.urgent {
-            color: var(--danger);
+            color: #c00;
         }
-
-        /* Badges */
-        .badge {
-            padding: 0.3rem 0.65rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-
-        .badge-status-research { background: #e8f0f0; color: var(--status-research); }
-        .badge-status-draft { background: #f0ece8; color: var(--status-draft); }
-        .badge-status-submitted { background: #f0e8ec; color: var(--status-submitted); }
-        .badge-status-revising { background: #e8ecf0; color: var(--status-revising); }
-        .badge-status-onhold { background: var(--bg-tertiary); color: var(--status-onhold); }
-        .badge-status-published { background: #e8f0ea; color: var(--status-published); }
-        .badge-type { background: var(--bg-tertiary); color: var(--text-secondary); }
 
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 5rem 2rem;
-            color: var(--text-tertiary);
+            padding: 6rem 2rem;
         }
 
         .empty-state .icon {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            opacity: 0.4;
+            opacity: 0.2;
         }
 
         .empty-state h3 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.75rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-            font-weight: 600;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #000;
         }
 
         .empty-state p {
             margin-bottom: 2rem;
-            font-size: 1.05rem;
+            color: #666;
         }
 
         /* Detail View */
@@ -389,35 +285,38 @@
         .detail-view.active { display: block; }
         .list-view.hidden { display: none; }
 
-        .back-btn {
-            margin-bottom: 1.5rem;
+        /* Back link - simple text */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
 
-        /* Hero Section */
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Section - Image only, no overlay */
         .detail-hero {
-            position: relative;
-            height: 360px;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
             margin-bottom: 2rem;
-            background: linear-gradient(135deg, #3d5a5a 0%, #2a4040 100%);
+        }
+
+        .detail-hero-image-container {
+            width: 100%;
+            min-height: 400px;
+            background: #f5f5f5;
+            margin-bottom: 2rem;
+            overflow: hidden;
         }
 
         .detail-hero-image {
             width: 100%;
             height: 100%;
+            min-height: 400px;
             object-fit: cover;
-            opacity: 0.9;
-        }
-
-        .detail-hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(20, 30, 30, 0.95) 0%, rgba(20, 30, 30, 0.4) 50%, rgba(20, 30, 30, 0.1) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 2.5rem;
         }
 
         .detail-hero-content {
@@ -425,183 +324,160 @@
         }
 
         .detail-hero h2 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 2.75rem;
-            font-weight: 600;
-            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #000;
             margin-bottom: 1rem;
-            line-height: 1.15;
+            line-height: 1.1;
             letter-spacing: -0.02em;
         }
 
         .detail-hero-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            align-items: center;
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0.75rem;
         }
 
-        .detail-hero .badge {
-            font-size: 0.7rem;
-            padding: 0.35rem 0.75rem;
-            background: rgba(255,255,255,0.15);
-            color: white;
-            backdrop-filter: blur(10px);
+        .detail-hero-description {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 0.75rem;
         }
 
-        .detail-hero-deadline {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.35rem 0.85rem;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 4px;
-            font-size: 0.85rem;
-            color: white;
-            font-weight: 500;
-        }
-
-        .detail-hero-deadline.urgent {
-            background: rgba(196, 90, 90, 0.5);
+        .detail-hero-dates {
+            font-size: 1rem;
+            color: #999;
+            margin-bottom: 2rem;
         }
 
         .detail-hero-actions {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
         }
 
-        .detail-hero-actions .btn {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            color: var(--text-primary);
+        /* Text link style for actions */
+        .text-link {
+            background: none;
             border: none;
+            padding: 0;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            color: #000;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .text-link:hover {
+            color: #666;
+        }
+
+        .text-link-danger {
+            color: #c00;
+        }
+
+        .text-link-danger:hover {
+            color: #900;
+        }
+
+        /* Content Sections - Magazine article style */
+        .content-sections {
+            margin-top: 3rem;
+            max-width: 800px;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
             font-size: 0.85rem;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.25rem;
         }
 
-        .detail-hero-actions .btn:hover {
-            background: white;
+        .section-title .count {
+            font-weight: 400;
+            color: #999;
         }
 
-        .detail-hero-actions .btn-danger {
-            background: rgba(196, 90, 90, 0.9);
-            color: white;
+        .section-body {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #333;
         }
 
-        .detail-hero-actions .btn-danger:hover {
-            background: var(--danger);
+        .section-action {
+            margin-top: 1.5rem;
         }
 
-        .detail-description {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.8);
-            margin-top: 0.75rem;
-            font-style: italic;
-        }
-
-        .detail-dates {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.5);
-            margin-top: 0.75rem;
-        }
-
-        /* Dashboard Grid */
+        /* Dashboard Grid - for multi-column layout */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: auto auto;
-            gap: 1.25rem;
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 4rem;
+            row-gap: 3rem;
+            margin-top: 3rem;
         }
 
         .dashboard-panel {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            /* No background, no padding, no border */
         }
 
         .dashboard-panel.panel-argument {
-            grid-column: 1 / 2;
-            grid-row: 1 / 3;
+            grid-column: 1 / 3;
         }
 
         .dashboard-panel.panel-notes {
-            grid-column: 2 / 3;
-            grid-row: 1 / 3;
-        }
-
-        .dashboard-panel.panel-sources {
-            grid-column: 3 / 4;
-            grid-row: 1 / 2;
-        }
-
-        .dashboard-panel.panel-contacts {
-            grid-column: 3 / 4;
-            grid-row: 2 / 3;
+            grid-column: 1 / 3;
         }
 
         .dashboard-panel.panel-links {
-            grid-column: 1 / 4;
-            grid-row: 3 / 4;
+            grid-column: 1 / 3;
         }
 
         .panel-header {
-            padding: 1rem 1.25rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-light);
-            background: var(--bg-tertiary);
+            margin-bottom: 1.25rem;
         }
 
         .panel-header h3 {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: #666;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            letter-spacing: 0.1em;
         }
 
         .panel-header .count {
-            background: var(--accent);
-            color: white;
-            font-size: 0.65rem;
-            padding: 0.15rem 0.45rem;
-            border-radius: 10px;
-            font-weight: 600;
+            font-weight: 400;
+            color: #999;
         }
 
         .panel-content {
-            padding: 1.25rem;
-            flex: 1;
-            overflow-y: auto;
-            max-height: 380px;
+            font-size: 1rem;
+            line-height: 1.7;
         }
 
         .panel-actions {
-            padding: 1rem 1.25rem;
-            border-top: 1px solid var(--border-light);
-            background: var(--bg-tertiary);
+            margin-top: 1.5rem;
         }
 
         /* Argument Panel */
         .argument-text {
             font-size: 1rem;
-            line-height: 1.75;
-            color: var(--text-primary);
+            line-height: 1.7;
+            color: #333;
             white-space: pre-wrap;
         }
 
         .argument-empty {
-            color: var(--text-tertiary);
+            color: #999;
             font-style: italic;
         }
 
@@ -609,54 +485,52 @@
         .notes-sort {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.8rem;
-            color: var(--text-tertiary);
-            margin-bottom: 1rem;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 1.5rem;
         }
 
         .notes-sort button {
             background: none;
-            border: 1px solid var(--border);
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
+            border: none;
+            padding: 0;
+            font-size: 0.85rem;
             font-family: 'Inter', sans-serif;
-            color: var(--text-tertiary);
-            transition: all 0.15s;
+            color: #666;
+            cursor: pointer;
+            text-decoration: underline;
         }
 
         .notes-sort button.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
+            color: #000;
+            font-weight: 600;
         }
 
         .note-item {
-            padding: 1rem;
-            border-left: 3px solid var(--accent);
-            margin-bottom: 0.875rem;
-            background: var(--bg-primary);
-            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .note-item:first-child {
+            padding-top: 0;
         }
 
         .note-item:last-child {
-            margin-bottom: 0;
+            border-bottom: none;
         }
 
         .note-date {
-            font-size: 0.75rem;
-            color: var(--text-tertiary);
-            margin-bottom: 0.375rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 0.5rem;
         }
 
         .note-text {
-            font-size: 0.95rem;
-            color: var(--text-primary);
+            font-size: 1rem;
+            color: #333;
             white-space: pre-wrap;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         /* Item List */
@@ -665,119 +539,126 @@
         }
 
         .item-list li {
-            padding: 1rem;
-            border: 1px solid var(--border-light);
-            border-radius: var(--radius-sm);
-            margin-bottom: 0.625rem;
-            background: var(--bg-primary);
-            transition: border-color 0.15s;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid #e5e5e5;
         }
 
-        .item-list li:hover {
-            border-color: var(--border);
+        .item-list li:first-child {
+            padding-top: 0;
         }
 
         .item-list li:last-child {
-            margin-bottom: 0;
+            border-bottom: none;
         }
 
         .item-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 0.75rem;
+            gap: 1rem;
         }
 
         .item-title {
             font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-            font-size: 0.95rem;
+            color: #000;
+            margin-bottom: 0.375rem;
+            font-size: 1rem;
         }
 
         .item-meta {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+            font-size: 1rem;
+            color: #666;
+            margin-top: 0.25rem;
         }
 
         .item-notes {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 0.625rem;
-            padding-top: 0.625rem;
-            border-top: 1px dashed var(--border-light);
+            font-size: 1rem;
+            color: #666;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px dashed #e5e5e5;
         }
 
         .item-actions {
             display: flex;
-            gap: 0.25rem;
+            gap: 0.75rem;
             flex-shrink: 0;
-            opacity: 0.5;
+            opacity: 0;
             transition: opacity 0.15s;
         }
 
-        .item-list li:hover .item-actions {
+        .item-list li:hover .item-actions,
+        .note-item:hover .item-actions {
             opacity: 1;
         }
 
         .item-link {
-            color: var(--accent);
-            text-decoration: none;
+            color: #000;
+            text-decoration: underline;
             word-break: break-all;
         }
 
         .item-link:hover {
+            color: #666;
+        }
+
+        /* Text link buttons for item actions */
+        .action-link {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            color: #000;
             text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .action-link:hover {
+            color: #666;
+        }
+
+        .action-link-danger {
+            color: #c00;
+        }
+
+        .action-link-danger:hover {
+            color: #900;
         }
 
         /* Images Section */
         .section {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-md);
-            margin-bottom: 1.25rem;
-            border: 1px solid var(--border);
-            overflow: hidden;
+            margin-bottom: 3rem;
         }
 
         .section-header {
-            padding: 1rem 1.25rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            user-select: none;
-            background: var(--bg-tertiary);
-            border-bottom: 1px solid var(--border-light);
-            transition: background 0.15s;
-        }
-
-        .section-header:hover {
-            background: var(--bg-primary);
+            margin-bottom: 1.25rem;
         }
 
         .section-header h3 {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: #666;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.1em;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         .section-header .count {
-            background: var(--accent);
-            color: white;
-            font-size: 0.65rem;
-            padding: 0.15rem 0.45rem;
-            border-radius: 10px;
-            font-weight: 600;
+            font-size: 0.85rem;
+            color: #999;
+            font-weight: 400;
         }
 
         .section-header .toggle {
-            font-size: 0.875rem;
-            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            color: #999;
             transition: transform 0.2s;
         }
 
@@ -786,7 +667,7 @@
         }
 
         .section-content {
-            padding: 1.25rem;
+            /* visible by default */
         }
 
         .section.collapsed .section-content {
@@ -794,51 +675,35 @@
         }
 
         .section-actions {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-light);
+            margin-top: 1.5rem;
         }
 
         .images-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 0.875rem;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.75rem;
         }
 
         .image-item {
-            position: relative;
             aspect-ratio: 1;
-            border-radius: var(--radius-sm);
             overflow: hidden;
             cursor: pointer;
-            background: var(--bg-tertiary);
+            background: #eee;
         }
 
         .image-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.2s;
+            transition: opacity 0.2s;
         }
 
         .image-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .image-item:hover .image-overlay {
-            opacity: 1;
+            opacity: 0.8;
         }
 
         .image-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(30, 40, 40, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            opacity: 0;
-            transition: opacity 0.2s;
+            display: none;
         }
 
         /* Modal */
@@ -848,13 +713,12 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(20, 25, 25, 0.6);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            padding: 1rem;
+            padding: 2rem;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.2s, visibility 0.2s;
@@ -866,36 +730,27 @@
         }
 
         .modal {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
+            background: #fff;
             width: 100%;
-            max-width: 560px;
+            max-width: 520px;
             max-height: 90vh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transform: scale(0.96) translateY(10px);
-            transition: transform 0.2s;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .modal-overlay.active .modal {
-            transform: scale(1) translateY(0);
         }
 
         .modal-header {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--border);
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e5e5;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .modal-header h2 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #000;
         }
 
         .modal-close {
@@ -903,14 +758,12 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--text-tertiary);
-            padding: 0.25rem;
+            color: #999;
             line-height: 1;
-            transition: color 0.15s;
         }
 
         .modal-close:hover {
-            color: var(--text-primary);
+            color: #000;
         }
 
         .modal-body {
@@ -921,11 +774,10 @@
 
         .modal-footer {
             padding: 1rem 1.5rem;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid #e5e5e5;
             display: flex;
             justify-content: flex-end;
-            gap: 0.625rem;
-            background: var(--bg-tertiary);
+            gap: 0.75rem;
         }
 
         /* Form */
@@ -939,54 +791,50 @@
 
         .form-group label {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.375rem;
         }
 
         .form-group label .required {
-            color: var(--danger);
+            color: #c00;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
+            padding: 0.75rem;
+            border: 1px solid #e5e5e5;
+            font-size: 0.9rem;
             font-family: 'Inter', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            transition: all 0.15s;
+            background: #fff;
+            color: #000;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--accent);
-            background: var(--bg-secondary);
-            box-shadow: 0 0 0 3px var(--accent-light);
+            border-color: #000;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 110px;
-            line-height: 1.6;
+            min-height: 100px;
+            line-height: 1.5;
         }
 
         .form-group .hint {
-            font-size: 0.8rem;
-            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            color: #999;
             margin-top: 0.375rem;
         }
 
         .form-group .error-message {
-            font-size: 0.8rem;
-            color: var(--danger);
+            font-size: 0.75rem;
+            color: #c00;
             margin-top: 0.375rem;
         }
 
@@ -1013,20 +861,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
             padding: 2rem;
-            border: 2px dashed var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text-tertiary);
-            font-size: 0.9rem;
-            background: var(--bg-primary);
-            transition: all 0.15s;
+            border: 1px dashed #ccc;
+            color: #999;
+            font-size: 0.875rem;
         }
 
         .file-input-wrapper:hover .file-input-label {
-            border-color: var(--accent);
-            background: var(--accent-light);
-            color: var(--accent);
+            border-color: #000;
+            color: #000;
         }
 
         .image-preview {
@@ -1036,22 +879,19 @@
 
         .image-preview img {
             max-width: 100%;
-            max-height: 180px;
-            border-radius: var(--radius-sm);
+            max-height: 150px;
         }
 
         /* Image Modal */
         .image-modal-content {
-            max-width: 90vw;
-            max-height: 90vh;
+            max-width: 800px;
         }
 
         .image-modal-content img {
             max-width: 100%;
-            max-height: 55vh;
+            max-height: 60vh;
             display: block;
             margin: 0 auto 1rem;
-            border-radius: var(--radius-sm);
         }
 
         .image-info {
@@ -1059,14 +899,14 @@
         }
 
         .image-info .caption {
-            font-size: 1.05rem;
-            color: var(--text-primary);
+            font-size: 1rem;
+            color: #000;
             margin-bottom: 0.25rem;
         }
 
         .image-info .attribution {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            font-size: 0.875rem;
+            color: #666;
         }
 
         /* Confirm Modal */
@@ -1075,21 +915,21 @@
         }
 
         .confirm-message {
-            font-size: 1.05rem;
-            color: var(--text-primary);
+            font-size: 1rem;
+            color: #000;
             margin-bottom: 0.5rem;
         }
 
         .confirm-warning {
-            font-size: 0.9rem;
-            color: var(--danger);
+            font-size: 0.875rem;
+            color: #c00;
         }
 
         /* Toast */
         .toast-container {
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
+            bottom: 2rem;
+            right: 2rem;
             z-index: 2000;
             display: flex;
             flex-direction: column;
@@ -1097,42 +937,31 @@
         }
 
         .toast {
-            padding: 0.875rem 1.125rem;
-            background: var(--text-primary);
-            color: white;
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
-            box-shadow: var(--shadow-lg);
-            animation: slideIn 0.25s ease;
+            padding: 0.875rem 1rem;
+            background: #000;
+            color: #fff;
+            font-size: 0.875rem;
+            animation: slideIn 0.2s ease;
         }
 
         .toast.success {
-            background: var(--status-published);
+            background: #1a1a1a;
         }
 
         .toast.error {
-            background: var(--danger);
+            background: #c00;
         }
 
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         /* Error Banner */
         .error-banner {
-            background: var(--danger-light);
-            border: 1px solid #e8d0d0;
-            color: var(--danger);
-            padding: 1rem 1.5rem;
-            margin: 1rem;
-            border-radius: var(--radius-sm);
+            background: #fee;
+            color: #c00;
+            padding: 1rem;
             text-align: center;
         }
 
@@ -1143,109 +972,38 @@
         /* Responsive */
         @media (max-width: 1024px) {
             .dashboard-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .dashboard-panel.panel-argument {
-                grid-column: 1 / 2;
-                grid-row: 1 / 2;
-            }
-
-            .dashboard-panel.panel-notes {
-                grid-column: 2 / 3;
-                grid-row: 1 / 2;
-            }
-
-            .dashboard-panel.panel-sources {
-                grid-column: 1 / 2;
-                grid-row: 2 / 3;
-            }
-
-            .dashboard-panel.panel-contacts {
-                grid-column: 2 / 3;
-                grid-row: 2 / 3;
-            }
-
-            .dashboard-panel.panel-links {
-                grid-column: 1 / 3;
-                grid-row: 3 / 4;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 1rem;
-            }
-
-            .header-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .header h1 {
-                text-align: center;
-            }
-
-            .header-actions {
-                justify-content: center;
-            }
-
-            .main-container {
-                padding: 1.25rem;
-            }
-
-            .toolbar {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-
-            .filter-group {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .filter-group select {
-                flex: 1;
-            }
-
-            .project-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .detail-hero {
-                height: 280px;
-                border-radius: var(--radius-md);
-            }
-
-            .detail-hero h2 {
-                font-size: 1.75rem;
-            }
-
-            .detail-hero-overlay {
-                padding: 1.5rem;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
             }
 
             .dashboard-panel.panel-argument,
             .dashboard-panel.panel-notes,
             .dashboard-panel.panel-sources,
             .dashboard-panel.panel-contacts,
-            .dashboard-panel.panel-links {
-                grid-column: 1;
-                grid-row: auto;
-            }
+            .dashboard-panel.panel-links { grid-column: 1; }
+        }
 
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 768px) {
+            .header { padding: 1.5rem 0; }
+            .header-content { flex-direction: column; align-items: stretch; padding: 0 1.5rem; }
+            .header h1 { text-align: center; font-size: 2rem; }
+            .header-actions { justify-content: center; }
 
-            .modal {
-                border-radius: var(--radius-md);
-            }
+            .main-container { padding: 2rem 1.5rem; }
+
+            .toolbar { flex-direction: column; gap: 1rem; }
+            .filter-group { width: 100%; justify-content: space-between; }
+            .filter-group select { flex: 1; }
+
+            .project-grid { grid-template-columns: 1fr; row-gap: 2.5rem; }
+            .project-card h3 { font-size: 1.5rem; }
+
+            .detail-hero-image-container { min-height: 250px; }
+            .detail-hero-image { min-height: 250px; }
+            .detail-hero h2 { font-size: 2rem; }
+
+            .dashboard-grid { grid-template-columns: 1fr; column-gap: 0; }
+
+            .form-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -1254,11 +1012,11 @@
 
     <header class="header">
         <div class="header-content">
-            <h1>Research Command Center</h1>
+            <h1>Research Projects</h1>
             <div class="header-actions">
                 <button class="btn btn-primary" onclick="openProjectModal()">+ New Project</button>
-                <button class="btn btn-secondary" onclick="exportAllProjects()">Export</button>
-                <button class="btn btn-secondary" onclick="document.getElementById('importInput').click()">Import</button>
+                <button class="btn" onclick="exportAllProjects()">Export</button>
+                <button class="btn" onclick="document.getElementById('importInput').click()">Import</button>
                 <input type="file" id="importInput" accept=".json" style="display:none" onchange="handleImport(event)">
             </div>
         </div>
@@ -1315,25 +1073,21 @@
         </div>
 
         <div id="detailView" class="detail-view">
-            <button class="btn btn-secondary back-btn" onclick="showListView()">← Back to Projects</button>
+            <a class="back-link" onclick="showListView()">&larr; Back to Projects</a>
 
-            <div class="detail-hero" id="detailHero">
-                <img id="detailHeroImage" class="detail-hero-image hidden" src="" alt="">
-                <div class="detail-hero-overlay">
-                    <div class="detail-hero-content">
-                        <h2 id="detailTitle"></h2>
-                        <div class="detail-hero-meta">
-                            <span id="detailType" class="badge badge-type"></span>
-                            <span id="detailStatus" class="badge"></span>
-                            <span id="detailDeadline" class="detail-hero-deadline hidden"></span>
-                        </div>
-                        <p id="detailDescription" class="detail-description"></p>
-                        <p id="detailDates" class="detail-dates"></p>
-                    </div>
+            <div class="detail-hero">
+                <div class="detail-hero-image-container">
+                    <img id="detailHeroImage" class="detail-hero-image" src="" alt="">
                 </div>
-                <div class="detail-hero-actions">
-                    <button class="btn" onclick="openEditProjectModal()">Edit</button>
-                    <button class="btn btn-danger" onclick="confirmDeleteProject()">Delete</button>
+                <div class="detail-hero-content">
+                    <h2 id="detailTitle"></h2>
+                    <div id="detailMeta" class="detail-hero-meta"></div>
+                    <p id="detailDescription" class="detail-hero-description"></p>
+                    <p id="detailDates" class="detail-hero-dates"></p>
+                    <div class="detail-hero-actions">
+                        <button class="text-link" onclick="openEditProjectModal()">Edit Project</button>
+                        <button class="text-link text-link-danger" onclick="confirmDeleteProject()">Delete Project</button>
+                    </div>
                 </div>
             </div>
 
@@ -1341,12 +1095,12 @@
             <div id="imagesSection" class="section">
                 <div class="section-header" onclick="toggleSection('imagesSection')">
                     <h3>Images <span id="imagesCount" class="count">0</span></h3>
-                    <span class="toggle">▼</span>
+                    <span class="toggle">&#9660;</span>
                 </div>
                 <div class="section-content">
                     <div id="imagesGrid" class="images-grid"></div>
                     <div class="section-actions">
-                        <button id="addImageBtn" class="btn btn-secondary btn-small" onclick="openImageModal()">+ Add Image</button>
+                        <button id="addImageBtn" class="text-link" onclick="openImageModal()">Add Image</button>
                     </div>
                 </div>
             </div>
@@ -1361,7 +1115,7 @@
                         <div id="argumentText" class="argument-text"></div>
                     </div>
                     <div class="panel-actions">
-                        <button class="btn btn-secondary btn-small" onclick="openArgumentModal()">Edit</button>
+                        <button class="text-link" onclick="openArgumentModal()">Edit</button>
                     </div>
                 </div>
 
@@ -1378,7 +1132,7 @@
                         <div id="notesList"></div>
                     </div>
                     <div class="panel-actions">
-                        <button class="btn btn-secondary btn-small" onclick="openNoteModal()">+ Add Note</button>
+                        <button class="text-link" onclick="openNoteModal()">Add Note</button>
                     </div>
                 </div>
 
@@ -1390,7 +1144,7 @@
                         <ul id="sourcesList" class="item-list"></ul>
                     </div>
                     <div class="panel-actions">
-                        <button class="btn btn-secondary btn-small" onclick="openSourceModal()">+ Add Source</button>
+                        <button class="text-link" onclick="openSourceModal()">Add Source</button>
                     </div>
                 </div>
 
@@ -1402,7 +1156,7 @@
                         <ul id="contactsList" class="item-list"></ul>
                     </div>
                     <div class="panel-actions">
-                        <button class="btn btn-secondary btn-small" onclick="openContactModal()">+ Add Contact</button>
+                        <button class="text-link" onclick="openContactModal()">Add Contact</button>
                     </div>
                 </div>
 
@@ -1414,7 +1168,7 @@
                         <ul id="linksList" class="item-list"></ul>
                     </div>
                     <div class="panel-actions">
-                        <button class="btn btn-secondary btn-small" onclick="openLinkModal()">+ Add Link</button>
+                        <button class="text-link" onclick="openLinkModal()">Add Link</button>
                     </div>
                 </div>
             </div>
@@ -1471,7 +1225,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('projectModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('projectModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="document.getElementById('projectForm').requestSubmit()">Save Project</button>
             </div>
         </div>
@@ -1492,7 +1246,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('argumentModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('argumentModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="document.getElementById('argumentForm').requestSubmit()">Save</button>
             </div>
         </div>
@@ -1531,7 +1285,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('sourceModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('sourceModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="document.getElementById('sourceForm').requestSubmit()">Save Source</button>
             </div>
         </div>
@@ -1570,7 +1324,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('imageModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('imageModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="document.getElementById('imageForm').requestSubmit()">Save Image</button>
             </div>
         </div>
@@ -1590,9 +1344,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="editCurrentImage()">Edit</button>
+                <button class="btn" onclick="editCurrentImage()">Edit</button>
                 <button class="btn btn-danger" onclick="deleteCurrentImage()">Delete</button>
-                <button class="btn btn-secondary" onclick="closeModal('imageViewModal')">Close</button>
+                <button class="btn" onclick="closeModal('imageViewModal')">Close</button>
             </div>
         </div>
     </div>
@@ -1613,7 +1367,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('noteModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('noteModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="document.getElementById('noteForm').requestSubmit()">Save Note</button>
             </div>
         </div>
@@ -1653,7 +1407,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('contactModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('contactModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="document.getElementById('contactForm').requestSubmit()">Save Contact</button>
             </div>
         </div>
@@ -1683,7 +1437,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('linkModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('linkModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="document.getElementById('linkForm').requestSubmit()">Save Link</button>
             </div>
         </div>
@@ -1700,7 +1454,7 @@
                 <p id="confirmWarning" class="confirm-warning"></p>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('confirmModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('confirmModal')">Cancel</button>
                 <button id="confirmBtn" class="btn btn-danger">Delete</button>
             </div>
         </div>
@@ -1723,7 +1477,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('importModal')">Cancel</button>
+                <button class="btn" onclick="closeModal('importModal')">Cancel</button>
                 <button class="btn btn-primary" onclick="executeImport()">Import</button>
             </div>
         </div>
@@ -1754,7 +1508,6 @@
     function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
     function closeModalOnOverlay(e, id) { if (e.target.classList.contains('modal-overlay')) closeModal(id); }
     function toggleSection(id) { document.getElementById(id).classList.toggle('collapsed'); }
-    function getStatusClass(s) { return { 'Research': 'research', 'Draft': 'draft', 'Submitted': 'submitted', 'Revising': 'revising', 'On Hold': 'onhold', 'Published/Completed': 'published' }[s] || 'research'; }
     function formatDate(s) { return s ? new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : ''; }
     function formatDateTime(s) { return s ? new Date(s).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : ''; }
     function getDaysUntil(d) { if (!d) return null; const dd = new Date(d), t = new Date(); dd.setHours(0,0,0,0); t.setHours(0,0,0,0); return Math.ceil((dd - t) / 86400000); }
@@ -1768,8 +1521,7 @@
         let f = filterAndSortProjects(projects);
         if (f.length === 0) { grid.innerHTML = '<div class="empty-state"><p>No projects match your filters.</p></div>'; return; }
         grid.innerHTML = f.map(p => {
-            const sc = getStatusClass(p.status);
-            const thumb = p.images?.length > 0 ? '<img src="' + p.images[0].imageData + '" alt="">' : '<div class="placeholder">+</div>';
+            const thumb = p.images?.length > 0 ? `<img src="${p.images[0].imageData}" alt="">` : '<div class="placeholder">+</div>';
             const days = getDaysUntil(p.deadline);
             let dlText = '', dlClass = '';
             if (p.deadline) {
@@ -1781,13 +1533,10 @@
             return `<div class="project-card" onclick="showDetailView('${p.id}')">
                 <div class="project-card-thumbnail">${thumb}</div>
                 <div class="project-card-content">
-                    <div class="project-card-badges">
-                        <span class="badge badge-type">${p.type}</span>
-                        <span class="badge badge-status-${sc}">${p.status}</span>
-                    </div>
                     <h3>${escapeHtml(p.title)}</h3>
+                    <div class="project-card-meta">${p.type} · ${p.status}</div>
                     ${p.description ? '<p class="project-card-description">' + escapeHtml(p.description) + '</p>' : ''}
-                    ${dlText ? '<div class="project-card-footer"><span class="project-card-deadline ' + dlClass + '">' + dlText + '</span></div>' : ''}
+                    ${dlText ? '<div class="project-card-deadline ' + dlClass + '">' + dlText + '</div>' : ''}
                 </div>
             </div>`;
         }).join('');
@@ -1812,27 +1561,21 @@
         document.getElementById('detailView').classList.add('active');
 
         document.getElementById('detailTitle').textContent = p.title;
-        document.getElementById('detailType').textContent = p.type;
 
-        const statusEl = document.getElementById('detailStatus');
-        statusEl.textContent = p.status;
-        statusEl.className = 'badge badge-status-' + getStatusClass(p.status);
+        // Meta line: Type · Status · Deadline
+        const days = getDaysUntil(p.deadline);
+        let metaParts = [p.type, p.status];
+        if (p.deadline) {
+            let dlText = formatDate(p.deadline);
+            if (days < 0) dlText = 'Past due: ' + dlText;
+            else if (days <= 14) dlText = dlText + ' (' + days + ' days)';
+            metaParts.push(dlText);
+        }
+        document.getElementById('detailMeta').textContent = metaParts.join(' · ');
 
         const descEl = document.getElementById('detailDescription');
         descEl.textContent = p.description || '';
         descEl.style.display = p.description ? 'block' : 'none';
-
-        const dlEl = document.getElementById('detailDeadline');
-        if (p.deadline) {
-            const days = getDaysUntil(p.deadline);
-            let txt = formatDate(p.deadline);
-            dlEl.classList.remove('urgent', 'hidden');
-            if (days < 0) { txt = 'Past due: ' + formatDate(p.deadline); dlEl.classList.add('urgent'); }
-            else if (days <= 14) { txt = formatDate(p.deadline) + ' (' + days + ' days)'; if (days <= 7) dlEl.classList.add('urgent'); }
-            dlEl.textContent = txt;
-        } else {
-            dlEl.classList.add('hidden');
-        }
 
         document.getElementById('detailDates').textContent = 'Created ' + formatDateTime(p.dateCreated) + ' · Modified ' + formatDateTime(p.dateModified);
 
@@ -1840,9 +1583,9 @@
         const heroImg = document.getElementById('detailHeroImage');
         if (p.images?.length > 0) {
             heroImg.src = p.images[0].imageData;
-            heroImg.classList.remove('hidden');
+            heroImg.style.display = 'block';
         } else {
-            heroImg.classList.add('hidden');
+            heroImg.style.display = 'none';
         }
 
         const argText = document.getElementById('argumentText');
@@ -1865,18 +1608,18 @@
         const src = p.sources || [];
         document.getElementById('sourcesCount').textContent = src.length;
         const list = document.getElementById('sourcesList');
-        if (src.length === 0) { list.innerHTML = '<li style="color:var(--text-tertiary);font-style:italic;border:none;background:none;padding:0;">No sources added yet.</li>'; return; }
+        if (src.length === 0) { list.innerHTML = '<li style="color:#999;font-style:italic;border:none;padding:0;">No sources added yet.</li>'; return; }
         list.innerHTML = src.map(s => `<li>
             <div class="item-header">
                 <div>
                     <div class="item-title">${escapeHtml(s.title)}</div>
                     ${s.archive ? '<div class="item-meta">' + escapeHtml(s.archive) + '</div>' : ''}
-                    ${s.citation ? '<div class="item-meta" style="margin-top:0.25rem;">' + escapeHtml(s.citation) + '</div>' : ''}
-                    ${s.fileLink ? '<div class="item-meta" style="margin-top:0.25rem;"><a href="' + escapeHtml(s.fileLink) + '" target="_blank" class="item-link">' + escapeHtml(s.fileLink) + '</a></div>' : ''}
+                    ${s.citation ? '<div class="item-meta">' + escapeHtml(s.citation) + '</div>' : ''}
+                    ${s.fileLink ? '<div class="item-meta"><a href="' + escapeHtml(s.fileLink) + '" target="_blank" class="item-link">' + escapeHtml(s.fileLink) + '</a></div>' : ''}
                 </div>
                 <div class="item-actions">
-                    <button class="btn btn-secondary btn-small btn-icon" onclick="openSourceModal('${s.id}')" title="Edit">Edit</button>
-                    <button class="btn btn-danger btn-small btn-icon" onclick="confirmDeleteSource('${s.id}')" title="Delete">×</button>
+                    <button class="action-link" onclick="openSourceModal('${s.id}')">Edit</button>
+                    <button class="action-link action-link-danger" onclick="confirmDeleteSource('${s.id}')">Delete</button>
                 </div>
             </div>
             ${s.notes ? '<div class="item-notes">' + escapeHtml(s.notes) + '</div>' : ''}
@@ -1888,14 +1631,11 @@
         document.getElementById('imagesCount').textContent = imgs.length;
         const btn = document.getElementById('addImageBtn');
         btn.disabled = imgs.length >= 5;
-        btn.textContent = imgs.length >= 5 ? 'Max 5 images' : '+ Add Image';
+        btn.textContent = imgs.length >= 5 ? 'Max 5 images' : 'Add Image';
         const grid = document.getElementById('imagesGrid');
-        if (imgs.length === 0) { grid.innerHTML = '<p style="color:var(--text-tertiary);font-style:italic;">No images added yet.</p>'; return; }
+        if (imgs.length === 0) { grid.innerHTML = '<p style="color:#999;font-style:italic;">No images added yet.</p>'; return; }
         grid.innerHTML = imgs.map(i => `<div class="image-item" onclick="viewImage('${i.id}')">
             <img src="${i.imageData}" alt="${escapeHtml(i.caption || '')}">
-            <div class="image-overlay">
-                <button class="btn btn-secondary btn-small" onclick="event.stopPropagation();viewImage('${i.id}')">View</button>
-            </div>
         </div>`).join('');
     }
 
@@ -1903,15 +1643,15 @@
         const notes = p.notes || [];
         document.getElementById('notesCount').textContent = notes.length;
         const list = document.getElementById('notesList');
-        if (notes.length === 0) { list.innerHTML = '<p style="color:var(--text-tertiary);font-style:italic;">No notes added yet.</p>'; return; }
+        if (notes.length === 0) { list.innerHTML = '<p style="color:#999;font-style:italic;">No notes added yet.</p>'; return; }
         let sorted = [...notes];
         sorted.sort((a, b) => notesSort === 'newest' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
         list.innerHTML = sorted.map(n => `<div class="note-item">
             <div class="item-header">
                 <div class="note-date">${formatDateTime(n.date)}</div>
                 <div class="item-actions">
-                    <button class="btn btn-secondary btn-small btn-icon" onclick="openNoteModal('${n.id}')" title="Edit">Edit</button>
-                    <button class="btn btn-danger btn-small btn-icon" onclick="confirmDeleteNote('${n.id}')" title="Delete">×</button>
+                    <button class="action-link" onclick="openNoteModal('${n.id}')">Edit</button>
+                    <button class="action-link action-link-danger" onclick="confirmDeleteNote('${n.id}')">Delete</button>
                 </div>
             </div>
             <div class="note-text">${escapeHtml(n.text)}</div>
@@ -1924,7 +1664,7 @@
         const contacts = p.contacts || [];
         document.getElementById('contactsCount').textContent = contacts.length;
         const list = document.getElementById('contactsList');
-        if (contacts.length === 0) { list.innerHTML = '<li style="color:var(--text-tertiary);font-style:italic;border:none;background:none;padding:0;">No contacts added yet.</li>'; return; }
+        if (contacts.length === 0) { list.innerHTML = '<li style="color:#999;font-style:italic;border:none;padding:0;">No contacts added yet.</li>'; return; }
         list.innerHTML = contacts.map(c => `<li>
             <div class="item-header">
                 <div>
@@ -1934,8 +1674,8 @@
                     ${c.phone ? '<div class="item-meta">' + escapeHtml(c.phone) + '</div>' : ''}
                 </div>
                 <div class="item-actions">
-                    <button class="btn btn-secondary btn-small btn-icon" onclick="openContactModal('${c.id}')" title="Edit">Edit</button>
-                    <button class="btn btn-danger btn-small btn-icon" onclick="confirmDeleteContact('${c.id}')" title="Delete">×</button>
+                    <button class="action-link" onclick="openContactModal('${c.id}')">Edit</button>
+                    <button class="action-link action-link-danger" onclick="confirmDeleteContact('${c.id}')">Delete</button>
                 </div>
             </div>
             ${c.notes ? '<div class="item-notes">' + escapeHtml(c.notes) + '</div>' : ''}
@@ -1946,7 +1686,7 @@
         const links = p.links || [];
         document.getElementById('linksCount').textContent = links.length;
         const list = document.getElementById('linksList');
-        if (links.length === 0) { list.innerHTML = '<li style="color:var(--text-tertiary);font-style:italic;border:none;background:none;padding:0;">No links added yet.</li>'; return; }
+        if (links.length === 0) { list.innerHTML = '<li style="color:#999;font-style:italic;border:none;padding:0;">No links added yet.</li>'; return; }
         list.innerHTML = links.map(l => `<li>
             <div class="item-header">
                 <div>
@@ -1954,8 +1694,8 @@
                     <div class="item-meta"><a href="${escapeHtml(l.url)}" target="_blank" class="item-link">${escapeHtml(l.url)}</a></div>
                 </div>
                 <div class="item-actions">
-                    <button class="btn btn-secondary btn-small btn-icon" onclick="openLinkModal('${l.id}')" title="Edit">Edit</button>
-                    <button class="btn btn-danger btn-small btn-icon" onclick="confirmDeleteLink('${l.id}')" title="Delete">×</button>
+                    <button class="action-link" onclick="openLinkModal('${l.id}')">Edit</button>
+                    <button class="action-link action-link-danger" onclick="confirmDeleteLink('${l.id}')">Delete</button>
                 </div>
             </div>
             ${l.notes ? '<div class="item-notes">' + escapeHtml(l.notes) + '</div>' : ''}
@@ -2399,7 +2139,7 @@
         const date = new Date().toISOString().split('T')[0];
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'research-command-center-backup-' + date + '.json';
+        a.download = 'research-projects-backup-' + date + '.json';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
